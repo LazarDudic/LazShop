@@ -19,4 +19,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/account', [App\Http\Controllers\AccountController::class, 'index'])->name('account');
+Route::middleware('auth')->group(function() {
+    Route::get('/account', [App\Http\Controllers\AccountController::class, 'index'])->name('account');
+});
