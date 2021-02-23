@@ -21,4 +21,5 @@ Auth::routes();
 
 Route::middleware('auth')->group(function() {
     Route::get('/account', [App\Http\Controllers\AccountController::class, 'index'])->name('account');
+    Route::resource('categories', \App\Http\Controllers\Category\CategoryController::class);
 });
