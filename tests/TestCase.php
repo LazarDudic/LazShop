@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -33,5 +34,22 @@ abstract class TestCase extends BaseTestCase
     public function category()
     {
         return Category::factory()->create();
+    }
+
+    public function product()
+    {
+        $user = $this->user();
+
+        return Product::factory([
+            'name' => $this->faker->unique()->name,
+            'description' => $this->faker->paragraph(3),
+            'status' => rand(0,1),
+            'price' => rand (1*10, 500*10) / 10,
+            'image' => null,
+            'category_id' => $this->category()->id,
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+        ])->create();
+
     }
 }
