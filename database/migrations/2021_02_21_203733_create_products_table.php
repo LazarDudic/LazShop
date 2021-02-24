@@ -19,9 +19,12 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->decimal('price',10, 2, true);
-            $table->unsignedSmallInteger('status');
+            $table->boolean('status')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
+            $table->foreignId('category_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->foreign('created_by')
                 ->references('id')
                 ->on('users')
@@ -45,6 +48,7 @@ class CreateProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
             $table->dropForeign(['created_by']);
             $table->dropForeign(['updated_by']);
         });
