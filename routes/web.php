@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Account\UserAddressController;
 use App\Http\Controllers\Account\UserProfileController;
 use App\Http\Controllers\Auth\Role\RoleController;
 use App\Http\Controllers\Category\CategoryController;
@@ -16,7 +17,7 @@ Auth::routes();
 Route::middleware('auth')->group(function() {
     Route::get('/account', [AccountController::class, 'index'])->name('account');
 
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class)->except('show');
 
     Route::resource('products', ProductController::class);
     Route::get('products/{product}/delete-image', [ProductController::class, 'deleteImage'])

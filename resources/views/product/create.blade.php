@@ -5,11 +5,14 @@
         <h1>Create Product</h1>
         <hr>
             @include('partials.messages')
+        <form action="{{ isset($product)
+                                      ? route('products.update', $product->id)
+                                      : route('products.store') }}"
+              method="POST"
+              enctype="multipart/form-data"
+        >
             @if(isset($product))
-                <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
-                    @method('PATCH')
-            @else
-                <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+                @method('PATCH')
             @endif
                 @csrf
                 <div class="form-group">

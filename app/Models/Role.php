@@ -13,6 +13,11 @@ class Role extends Model
         'name',
     ];
 
+    public function isNotAdmin()
+    {
+        return $this->name !== 'admin';
+    }
+
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'roles_permissions');

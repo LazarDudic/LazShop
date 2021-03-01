@@ -18,7 +18,6 @@ class CategoryController extends Controller
         return view('category.index', compact('categories'));
     }
 
-
     public function create()
     {
         return view('category.create');
@@ -34,18 +33,10 @@ class CategoryController extends Controller
         return redirect(route('categories.index'))->withSuccess('Category created successfully');
     }
 
-
-    public function show($id)
-    {
-        //
-    }
-
-
     public function edit(Category $category)
     {
         return view('category.create', compact('category'));
     }
-
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {

@@ -32,8 +32,6 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $data = $request->validated();
-        $data['created_by'] = auth()->id();
-        $data['updated_by'] = auth()->id();
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->image->store('product', 'public');
@@ -61,7 +59,6 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $data = $request->validated();
-        $data['updated_by'] = auth()->id();
 
         if ($request->hasFile('image')) {
             $product->deleteImage();

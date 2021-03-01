@@ -6,13 +6,14 @@
         <h1>Create Role</h1>
         <hr>
         @include('partials.messages')
-
-        @if(isset($role))
-            <form action="{{ route('roles.update', $role->id) }}" method="POST" enctype="multipart/form-data">
-            @method('PATCH')
-        @else
-            <form action="{{ route('roles.store') }}" method="POST" enctype="multipart/form-data">
-        @endif
+         <form action="{{ isset($role)
+                                      ? route('roles.update', $role->id)
+                                      : route('roles.store') }}"
+               method="POST"
+         >
+             @if(isset($role))
+                 @method('PATCH')
+             @endif
             @csrf
 
             <div class="form-group">
@@ -30,7 +31,6 @@
                         @endif
                     >
                     <label class="form-check-label" for="{{ $permission->name }}"><strong>{{ $permission->name }}</strong></label>
-
                 </div>
             @endforeach
             </div>

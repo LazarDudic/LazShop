@@ -18,14 +18,14 @@ class UserProfileController extends Controller
 
     public function edit(User $user)
     {
-        abort_if($user->id !== auth()->id(), 403);
+        abort_if($user->isNotAuthenticated(), 403);
 
         return view('account.profile.edit', compact('user'));
     }
 
     public function update(UpdateProfileRequest $request, User $user)
     {
-        abort_if($user->id !== auth()->id(), 403);
+        abort_if($user->isNotAuthenticated(), 403);
 
         $user->update($request->validated());
 
@@ -34,7 +34,7 @@ class UserProfileController extends Controller
 
     public function updatePassword(UpdateProfilePasswordRequest $request, User $user)
     {
-        abort_if($user->id !== auth()->id(), 403);
+        abort_if($user->isNotAuthenticated(), 403);
 
         $user->update([
             'password' => $request->new_password

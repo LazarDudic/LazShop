@@ -5,11 +5,13 @@
         <h1>{{ isset($category) ? 'Update Category' : 'Create Category'}}</h1>
         <hr>
         @include('partials.messages')
+        <form action="{{ isset($category)
+                                        ? route('categories.update', $category->slug)
+                                        : route('categories.store') }}"
+              method="POST"
+        >
             @if(isset($category))
-                <form action="{{ route('categories.update', $category->slug) }}" method="POST">
                 @method('PATCH')
-            @else
-                <form action="{{ route('categories.store') }}" method="POST">
             @endif
             @csrf
             <div class="form-group">
