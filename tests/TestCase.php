@@ -13,17 +13,27 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, WithFaker, RefreshDatabase;
 
+    public function setUp() : void
+    {
+        parent::setUp();
+
+        $this->artisan('db:seed', ['--class' => 'RoleSeeder']);
+        $this->artisan('db:seed', ['--class' => 'PermissionSeeder']);
+    }
+
     public function authUser()
     {
-        $this->post(route('register'), [
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'email' => 'auth@email.com',
+        $email = $this->faker->email;
+
+        User::factory()->create([
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'email' => $email,
+            'role_id' => 1,
             'password' => 'password',
-            'password_confirmation' => 'password'
         ]);
 
-        return $this->actingAs(User::where('email', 'auth@email.com')->first());
+        return $this->actingAs(User::where('email', $email)->first());
     }
 
     public function user()
@@ -38,18 +48,16 @@ abstract class TestCase extends BaseTestCase
 
     public function product()
     {
-        $user = $this->user();
-
-        return Product::factory([
-            'name' => $this->faker->unique()->name,
+        $name = $this->faker->unique()->name;
+        $this->authUser()->post(route('products.store'), [
+            'name'        => $name,
             'description' => $this->faker->paragraph(3),
-            'status' => rand(0,1),
-            'price' => rand (1*10, 500*10) / 10,
-            'image' => null,
+            'status'      => rand(0, 1),
+            'price'       => rand(1 * 10, 500 * 10) / 10,
+            'image'       => null,
             'category_id' => $this->category()->id,
-            'created_by' => $user->id,
-            'updated_by' => $user->id,
-        ])->create();
+        ]);
 
+        return Product::where('name', $name)->first();
     }
 }

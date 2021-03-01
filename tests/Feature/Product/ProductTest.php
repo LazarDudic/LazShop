@@ -30,16 +30,15 @@ class ProductTest extends TestCase
     {
         $product = $this->product();
 
-        $response = $this->authUser()->patch(route('products.store', $product->id), [
-            'name' => 'random name',
+        $this->authUser()->patch(route('products.update', $product->id), [
+            'name' => 'updated name',
             'description' => $this->faker->paragraph(3),
             'price' => rand(1, 500),
             'image' => null,
             'category_id' => $this->category()->id,
-            'updated_by' => $this->user()->id,
         ]);
 
-        $response->assertSee('Product updated successfully.');
+       $this->assertEquals(1, Product::where('name', 'updated name')->count());
     }
 
     /** @test */
@@ -67,7 +66,7 @@ class ProductTest extends TestCase
         $product =  Product::where('name', 'random name')->first();
         Storage::disk('public')->assertExists($product->image);
 
-        $this->authUser()->get(route('products.image-delete', $product->id));
+        $this->authUser()->get(route('products.delete-image', $product->id));
 
         $product1 =  Product::where('name', 'random name')->first();
         $this->assertNull($product1->image);
