@@ -28,4 +28,7 @@ Route::middleware('auth')->group(function() {
     Route::resource('profile', UserProfileController::class);
     Route::patch('profile/{user}/update-password', [UserProfileController::class, 'updatePassword'])
         ->name('profile.update-password');
+
+    Route::resource('address', UserAddressController::class);
+
 });

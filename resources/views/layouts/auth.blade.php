@@ -73,6 +73,7 @@
                     <div class="collapse" id="collapseProfile" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('profile.index') }}">{{ auth()->user()->first_name }}</a>
+                            <a class="nav-link" href="{{ route('address.index') }}">Address</a>
                         </nav>
                     </div>
                     <!-- Products -->
