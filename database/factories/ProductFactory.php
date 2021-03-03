@@ -21,6 +21,7 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        // Comment out booted method in Product model before calling factory
         return [
             'name' => $this->faker->unique()->name,
             'description' => $this->faker->paragraph(3),

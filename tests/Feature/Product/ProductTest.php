@@ -12,7 +12,7 @@ class ProductTest extends TestCase
     /** @test */
     public function product_can_be_created()
     {
-        $this->authUser()->post(route('products.store'), [
+        $this->admin()->post(route('products.store'), [
             'name' => 'random name',
             'description' => $this->faker->paragraph(3),
             'status' => $this->faker->randomElement([null, 'on']),
@@ -30,7 +30,7 @@ class ProductTest extends TestCase
     {
         $product = $this->product();
 
-        $this->authUser()->patch(route('products.update', $product->id), [
+        $this->admin()->patch(route('products.update', $product->id), [
             'name' => 'updated name',
             'description' => $this->faker->paragraph(3),
             'price' => rand(1, 500),
@@ -45,7 +45,7 @@ class ProductTest extends TestCase
     public function product_can_be_deleted()
     {
         $product = $this->product();
-        $this->authUser()->delete(route('products.destroy', $product->id));
+        $this->admin()->delete(route('products.destroy', $product->id));
 
         $count = Product::where('id', $product->id)->get()->count();
 
@@ -55,7 +55,7 @@ class ProductTest extends TestCase
     /** @test */
     public function image_can_be_deleted()
     {
-        $this->authUser()->post(route('products.store'), [
+        $this->admin()->post(route('products.store'), [
             'name' => 'random name',
             'description' => $this->faker->paragraph(3),
             'price' => rand(1, 500),
@@ -66,7 +66,7 @@ class ProductTest extends TestCase
         $product =  Product::where('name', 'random name')->first();
         Storage::disk('public')->assertExists($product->image);
 
-        $this->authUser()->get(route('products.delete-image', $product->id));
+        $this->admin()->get(route('products.delete-image', $product->id));
 
         $product1 =  Product::where('name', 'random name')->first();
         $this->assertNull($product1->image);

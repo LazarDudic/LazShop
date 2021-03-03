@@ -10,7 +10,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function category_can_be_created()
     {
-        $this->authUser()->post(route('categories.store'), [
+        $this->admin()->post(route('categories.store'), [
             'name' => $this->faker->paragraph
         ]);
 
@@ -21,7 +21,7 @@ class CategoryTest extends TestCase
     public function category_can_be_updated()
     {
         $category = $this->category();
-        $response = $this->authUser()->post(route('categories.update', $category->slug), [
+        $response = $this->admin()->post(route('categories.update', $category->slug), [
             'name' => $category->name . '1'
         ]);
 
@@ -34,7 +34,7 @@ class CategoryTest extends TestCase
         $category = $this->category();
         $categoryNew = $this->category();
 
-        $response = $this->authUser()->patch(route('categories.update', $category->slug), [
+        $response = $this->admin()->patch(route('categories.update', $category->slug), [
             'name' => $categoryNew->name
         ]);
 

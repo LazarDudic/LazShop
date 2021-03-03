@@ -21,7 +21,7 @@ abstract class TestCase extends BaseTestCase
         $this->artisan('db:seed', ['--class' => 'PermissionSeeder']);
     }
 
-    public function authUser()
+    public function admin()
     {
         $email = $this->faker->email;
 
@@ -41,6 +41,21 @@ abstract class TestCase extends BaseTestCase
         return User::factory()->create();
     }
 
+    public function buyer()
+    {
+        $email = $this->faker->email;
+
+        User::factory()->create([
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'email' => $email,
+            'role_id' => 3,
+            'password' => 'password',
+        ]);
+
+        return $this->actingAs(User::where('email', $email)->first());
+    }
+
     public function category()
     {
         return Category::factory()->create();
@@ -49,7 +64,7 @@ abstract class TestCase extends BaseTestCase
     public function product()
     {
         $name = $this->faker->unique()->name;
-        $this->authUser()->post(route('products.store'), [
+        $this->admin()->post(route('products.store'), [
             'name'        => $name,
             'description' => $this->faker->paragraph(3),
             'status'      => rand(0, 1),
