@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->roles->contains('name', 'admin');
+        return $this->role->name === 'admin';
     }
 
     public function address()

@@ -23,12 +23,14 @@ Route::middleware('auth')->group(function() {
     Route::get('products/{product}/delete-image', [ProductController::class, 'deleteImage'])
         ->name('products.delete-image');
 
-    Route::resource('roles', RoleController::class)->except('show');
 
     Route::resource('profile', UserProfileController::class);
     Route::patch('profile/{user}/update-password', [UserProfileController::class, 'updatePassword'])
         ->name('profile.update-password');
 
     Route::resource('address', UserAddressController::class);
+});
 
+Route::middleware('admin')->group(function() {
+    Route::resource('roles', RoleController::class)->except('show');
 });
