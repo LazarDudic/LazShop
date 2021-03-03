@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateProfilePasswordRequest;
 use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserProfileController extends Controller
 {
@@ -37,7 +38,7 @@ class UserProfileController extends Controller
         abort_if($user->isNotAuthenticated(), 403);
 
         $user->update([
-            'password' => $request->new_password
+            'password' => Hash::make($request->new_password)
         ]);
 
         return redirect(route('profile.index'))->withSuccess('Password updated successfully');
