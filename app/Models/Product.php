@@ -21,6 +21,25 @@ class Product extends Model
         'updated_by'
     ];
 
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function updatedAt()
+    {
+        if ($this->created_at != $this->updated_at) {
+            return $this->updated_at;
+        }
+
+        return null;
+    }
+
     protected static function booted()
     {
         static::creating(function ($product) {

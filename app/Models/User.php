@@ -44,6 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function fullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
     public function isNotAuthenticated()
     {
         return $this->id !== auth()->id();

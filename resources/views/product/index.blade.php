@@ -58,8 +58,9 @@
                                             : '<p class="badge badge-danger">Draft</p>'
                                     !!}
                                 </td>
-                                <td>{{ $product->created_by }}</td>
-                                <td>{{ $product->updated_by }}</td>
+                                <td>{{ $product->createdBy->fullName() }}</td>
+                                <td>{{ $product->updatedBy->fullName() }} <br>
+                                    {{ optional($product->updatedAt())->format('m.d - H:i') }}</td>
                                 <td class="d-flex">
                                     <a href="{{ route('products.edit', $product->id) }}"
                                        class="btn btn-info btn-sm mr-2" title="Edit">
