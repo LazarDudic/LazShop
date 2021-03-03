@@ -11,8 +11,8 @@
                 <i class="fas fa-table mr-1"></i>
                 <a class="btn btn-primary btn-sm float-right"
                    href="{{ isset($userAddress)
-                                                ? route('address.edit', $userAddress->id)
-                                                : route('address.create') }}"
+                                               ? route('address.edit', $userAddress->id)
+                                               : route('address.create') }}"
                    >
                     {{ isset($userAddress) ? 'Edit' : 'Create'}}
                 </a>
@@ -23,18 +23,14 @@
                         @if(isset($userAddress))
                             <tr>
                                 <th>Country</th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th>State</th>
                                 <td>{{ $userAddress->country }}</td>
                             </tr>
                             <tr>
-                                <th>City</th>
+                                <th>State</th>
                                 <td>{{ $userAddress->state }}</td>
                             </tr>
                             <tr>
-                                <th>Address</th>
+                                <th>City</th>
                                 <td>{{ $userAddress->city }}</td>
                             </tr>
                             <tr>
