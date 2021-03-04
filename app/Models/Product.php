@@ -15,6 +15,7 @@ class Product extends Model
         'description',
         'status',
         'price',
+        'quantity',
         'image',
         'category_id',
         'created_by',
@@ -58,7 +59,7 @@ class Product extends Model
 
     public function setStatusAttribute($value)
     {
-        $this->attributes['status'] = ($value === 'on');
+        $this->attributes['status'] = ($value === 'on') ;
     }
 
     public function deleteImage()

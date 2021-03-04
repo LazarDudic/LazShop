@@ -21,12 +21,14 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        // Comment out booted method in Product model before calling factory
+        Product::flushEventListeners();
+
         return [
             'name' => $this->faker->unique()->name,
             'description' => $this->faker->paragraph(3),
-            'status' => rand(0,1),
+            'status' => $this->faker->randomElement([0, 'on']),
             'price' => rand (1*10, 500*10) / 10,
+            'quantity' => rand (0,200),
             'image' => null,
             'category_id' => 1,
             'created_by' => 1,

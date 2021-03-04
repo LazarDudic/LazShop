@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->decimal('price',10, 2, true);
+            $table->unsignedBigInteger('quantity')->default(0);
             $table->boolean('status')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
@@ -35,8 +36,6 @@ class CreateProductsTable extends Migration
                 ->onDelete('cascade');
 
             $table->timestamps();
-
-
         });
     }
 

@@ -22,6 +22,7 @@
                             <th>Description</th>
                             <th>Image</th>
                             <th>Price</th>
+                            <th>Quantity</th>
                             <th>Status</th>
                             <th>Created By</th>
                             <th>Updated By</th>
@@ -35,6 +36,7 @@
                             <th>Description</th>
                             <th>Image</th>
                             <th>Price</th>
+                            <th>Quantity</th>
                             <th>Status</th>
                             <th>Created By</th>
                             <th>Updated By</th>
@@ -52,6 +54,7 @@
                                         width="80" height="70">
                                 </td>
                                 <td>{{ $product->price }}</td>
+                                <td>{{ $product->quantity }}</td>
                                 <td>
                                     {!! $product->status
                                             ? '<p class="badge badge-success">Active</p>'
