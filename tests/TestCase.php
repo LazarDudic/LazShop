@@ -34,6 +34,7 @@ abstract class TestCase extends BaseTestCase
             'description' => $this->faker->paragraph(3),
             'status'      => rand(0, 1),
             'price'       => rand(1 * 10, 500 * 10) / 10,
+            'quantity'    => rand(1, 100),
             'image'       => null,
             'category_id' => $this->category()->id,
         ]);

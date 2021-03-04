@@ -17,6 +17,7 @@ class ProductTest extends TestCase
             'description' => $this->faker->paragraph(3),
             'status' => $this->faker->randomElement([null, 'on']),
             'price' => rand(1, 500),
+            'quantity' => rand(0, 100),
             'image' => UploadedFile::fake()->image('avatar.jpg'),
             'category_id' => $this->category()->id,
         ]);
@@ -34,6 +35,7 @@ class ProductTest extends TestCase
             'name' => 'updated name',
             'description' => $this->faker->paragraph(3),
             'price' => rand(1, 500),
+            'quantity' => rand(0, 100),
             'image' => null,
             'category_id' => $this->category()->id,
         ]);
@@ -59,6 +61,7 @@ class ProductTest extends TestCase
             'name' => 'random name',
             'description' => $this->faker->paragraph(3),
             'price' => rand(1, 500),
+            'quantity' => rand(1, 100),
             'image' => UploadedFile::fake()->image('avatar.jpg'),
             'category_id' => $this->category()->id,
         ]);
