@@ -62,8 +62,12 @@
                                     !!}
                                 </td>
                                 <td>{{ $product->createdBy->fullName() }}</td>
-                                <td>{{ $product->updatedBy->fullName() }} <br>
-                                    {{ optional($product->updatedAt())->format('m.d - H:i') }}</td>
+                                <td>
+                                    @if(! is_null($product->updatedAt()))
+                                        {{ $product->updatedBy->fullName() }} <br>
+                                        {{ $product->updatedAt()->format('m.d - H:i') }}
+                                    @endif
+                                </td>
                                 <td class="d-flex">
                                     <a href="{{ route('products.edit', $product->id) }}"
                                        class="btn btn-info btn-sm mr-2" title="Edit">
