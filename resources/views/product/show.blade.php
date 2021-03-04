@@ -17,7 +17,9 @@
                             <div class="offset-1">
                                 <h3 class="card-title ">{{ $product->name }}</h3>
                                 <h4 class="text-success">${{ $product->price }}</h4>
-                                <button class="btn btn-info w-75 m-auto">Add to cart</button>
+                                <!-- AddToCartButton -->
+                                <livewire:cart.add-to-cart-button :product="$product"/>
+                                <!-- AddToCartButton end -->
                             </div>
                         </div>
                         <p class="card-text">{!! $product->description !!}</p>

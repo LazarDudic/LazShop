@@ -32,6 +32,11 @@
                            value="{{ old('price') ?? $product->price ?? '' }}">
                 </div>
                 <div class="form-group">
+                    <label for="">Quantity</label>
+                    <input name="quantity" type="number" class="form-control" step="any" min="0"
+                           value="{{ old('quantity') ?? $product->quantity ?? '' }}">
+                </div>quantity
+                <div class="form-group">
                     <label for="">Image</label>
                     <div class="custom-file">
                         <input name="image"  type="file" class="custom-file-input" id="customFile">

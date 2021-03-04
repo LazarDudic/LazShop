@@ -4,14 +4,15 @@ use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\UserAddressController;
 use App\Http\Controllers\Account\UserProfileController;
 use App\Http\Controllers\Auth\Role\RoleController;
+use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Product\ProductController;
-use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::resource('cart', CartController::class);
 Auth::routes();
 
 Route::middleware('auth')->group(function() {

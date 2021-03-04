@@ -22,7 +22,10 @@
                                     <a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a>
                                 </h6>
                                 <h5 class="text-success">${{ $product->price }}</h5>
-                                <button class="btn btn-info">Add to cart</button>
+                                <!-- AddToCartButton -->
+                                <livewire:cart.add-to-cart-button :product="$product"/>
+                                <!-- AddToCartButton end -->
+
                             </div>
                             <div class="card-footer">
                                 <small class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
