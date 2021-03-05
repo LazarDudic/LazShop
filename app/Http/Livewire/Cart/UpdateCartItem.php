@@ -3,52 +3,49 @@
 namespace App\Http\Livewire\Cart;
 
 use App\Models\Product;
+use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
 class UpdateCartItem extends Component
 {
     public $itemId;
+    public $cartItemQuantity;
 
     public function mount($itemId)
     {
         $this->itemId = $itemId;
     }
 
-    public function decrease()
+    public function updateCartItemQuantity(CartItem $cartItem)
     {
-        $cartItem = $this->getCartItem();
+        $product = Product::findOrFail($this->itemId);
 
-        if ($cartItem->qty === 1) {
-            return null;
+        if (empty($this->cartItemQuantity) || $this->cartItemQuantity < 1) {
+            $this->cartItemQuantity = $cartItem->qty;
         }
 
-        Cart::update($cartItem->rowId,  $cartItem->qty - 1);
+        if ($product->quantity === 0) {
+            Cart::remove($cartItem->rowId);
+            session()->flash('error', 'Product '. $product->name . ' is just sold out.');
+            return $this->redirect(route('cart.index'));
+        }
+
+        if ($product->quantity < $this->cartItemQuantity) {
+            $this->cartItemQuantity = $product->quantity;
+        }
+
+        Cart::update($cartItem->rowId, $this->cartItemQuantity);
+    }
+
+    public function decrease()
+    {
+        $this->cartItemQuantity -= 1;
     }
 
     public function increase()
     {
-        $product = Product::findOrFail($this->itemId);
-        $cartItem = $this->getCartItem();
-
-        if ($product->quantity === 0) {
-            session()->flash('error', 'Product '. $product->name . ' is just sold out.');
-            $this->redirect(route('cart.index'));
-        }
-
-        if ($product->quantity <= $cartItem->qty) {
-            Cart::update($cartItem->rowId, $product->quantity);
-            return;
-        }
-
-        Cart::update($cartItem->rowId, $cartItem->qty + 1);
-    }
-
-    public function remove()
-    {
-        $cartItem = $this->getCartItem();
-         Cart::remove($cartItem->rowId);
-         return $this->redirect(route('cart.index'));
+        $this->cartItemQuantity += 1;
     }
 
     protected function getCartItem()
@@ -62,9 +59,18 @@ class UpdateCartItem extends Component
         }
     }
 
+    public function remove()
+    {
+        $cartItem = $this->getCartItem();
+        Cart::remove($cartItem->rowId);
+        return $this->redirect(route('cart.index'));
+    }
+
+
     public function render()
     {
         $cartItem = $this->getCartItem();
+        $this->updateCartItemQuantity($cartItem);
         $this->emit('UpdateCartItem');
 
         return view('livewire.cart.update-cart-item', [

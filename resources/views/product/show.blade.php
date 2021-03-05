@@ -17,8 +17,13 @@
                             <div class="offset-1">
                                 <h3 class="card-title ">{{ $product->name }}</h3>
                                 <h4 class="text-success">${{ $product->price }}</h4>
+                                <span class="text-secondary mb-4">({{ $product->quantity }}) peaces available.</span>
                                 <!-- AddToCartButton -->
-                                <livewire:cart.add-to-cart-button :product="$product"/>
+                                @if($product->quantity > 0)
+                                    <livewire:cart.add-to-cart-button :product="$product"/>
+                                @else
+                                    <p class="badge badge-danger">Product unavailable.</p>
+                                @endif
                                 <!-- AddToCartButton end -->
                             </div>
                         </div>

@@ -1,18 +1,32 @@
 <div>
-    <div class="d-flex mb-0">
-        <button wire:click="decrease()" class="btn btn-danger btn-sm">
-            <i class="fas fa-minus"></i>
-        </button>
+    <div class="">
+        <div class="d-flex h-75">
+            <button wire:click="decrease()" class="btn btn-danger btn-sm">
+                <i class="fas fa-minus"></i>
+            </button>
 
-        <h4 class="px-4">{{ $cartItem->qty }}</h4>
+            <input class="w-25 text-center" wire:model.debounce.1500ms="cartItemQuantity" type="number" min="1"
+                   value="{{ $cartItemQuantity }}">
 
-        <button wire:click="increase()"  class="btn btn-success btn-sm" >
-            <i class="fas fa-plus"></i>
-        </button>
+            <button wire:click="increase()"  class="btn btn-success btn-sm" >
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
 
+        <div class=" text-secondary">
+            <p>({{ $cartItem->model->quantity - $cartItem->qty }}) peaces left</p>
+        </div>
     </div>
-    <div>
-        <p class="mt-3"><span><strong id="summary">Price: ${{ number_format($cartItem->price, 2) }}</strong></span></p>
+    <div class="d-flex mt-3 justify-content-between">
+        <span>
+            Unit Price: ${{ priceFormat($cartItem->price, 2)}}
+        </span>
+        <span>
+            Total Price:
+            <strong>
+                ${{ priceFormat($cartItem->price * $cartItem->qty, 2)}}
+            </strong>
+        </span>
     </div>
 
     <div class="d-flex justify-content-between">
@@ -23,4 +37,3 @@
     </div>
 
 </div>
-
