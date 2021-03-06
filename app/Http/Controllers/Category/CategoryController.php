@@ -18,10 +18,19 @@ class CategoryController extends Controller
         return view('category.index', compact('categories'));
     }
 
+    public function show(Category $category)
+    {
+        $categories = Category::all();
+        $products = $category->products;
+
+        return view('category.show', compact('categories', 'products'));
+    }
+
     public function create()
     {
         return view('category.create');
     }
+
 
     public function store(CreateCategoryRequest $request)
     {

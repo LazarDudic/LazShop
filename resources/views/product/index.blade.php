@@ -19,11 +19,11 @@
                         <tr>
                             <th>#ID</th>
                             <th>Name</th>
-                            <th>Description</th>
                             <th>Image</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Status</th>
+                            <th>Category</th>
                             <th>Created By</th>
                             <th>Updated By</th>
                             <th>Action</th>
@@ -33,11 +33,11 @@
                         <tr>
                             <th>#ID</th>
                             <th>Name</th>
-                            <th>Description</th>
                             <th>Image</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Status</th>
+                            <th>Category</th>
                             <th>Created By</th>
                             <th>Updated By</th>
                             <th>Action</th>
@@ -48,7 +48,6 @@
                             <tr>
                                 <th>{{ $product->id }}</th>
                                 <td>{{ $product->name }}</td>
-                                <td>{!! substr($product->description, 0, 20) !!}</td>
                                 <td class="p-1">
                                     <img src="{{ imagePath($product->image) }}" alt="{{ $product->name }}"
                                         width="80" height="70">
@@ -61,6 +60,7 @@
                                             : '<p class="badge badge-danger">Draft</p>'
                                     !!}
                                 </td>
+                                <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->createdBy->fullName() }}</td>
                                 <td>
                                     @if(! is_null($product->updatedAt()))
@@ -69,8 +69,13 @@
                                     @endif
                                 </td>
                                 <td class="d-flex">
+                                    <a href="{{ route('products.show', $product->id) }}"
+                                       class="btn btn-secondary btn-sm mr-2" title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                     <a href="{{ route('products.edit', $product->id) }}"
-                                       class="btn btn-info btn-sm mr-2" title="Edit">
+                                       class="btn btn-info btn-sm mr-2"
+                                       title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST"

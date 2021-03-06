@@ -15,12 +15,18 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('cart', CartController::class);
 Auth::routes();
 
+Route::get('categories/{category}', [CategoryController::class, 'show'])
+    ->name('categories.show');
+
+Route::get('products/{product}', [ProductController::class, 'show'])
+     ->name('products.show');
+
 Route::middleware('auth')->group(function() {
     Route::get('/account', [AccountController::class, 'index'])->name('account');
 
     Route::resource('categories', CategoryController::class)->except('show');
 
-    Route::resource('products', ProductController::class);
+    Route::resource('products', ProductController::class)->except('show');
     Route::get('products/{product}/delete-image', [ProductController::class, 'deleteImage'])
         ->name('products.delete-image');
 

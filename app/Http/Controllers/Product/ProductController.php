@@ -13,7 +13,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::with('createdBy','updatedBy')
+        $products = Product::with('createdBy','updatedBy', 'category')
                            ->orderByDesc('updated_at')
                            ->get();
 

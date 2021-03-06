@@ -35,6 +35,10 @@
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->slug }}</td>
                             <td class="d-flex">
+                                <a href="{{ route('categories.show', $category->slug) }}"
+                                   class="btn btn-secondary btn-sm mr-2" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                                 <a href="{{ route('categories.edit', $category->slug) }}"
                                    class="btn btn-info btn-sm mr-2" title="Edit">
                                     <i class="fas fa-edit"></i>
