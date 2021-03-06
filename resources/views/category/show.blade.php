@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => $category->name])
 
 @section('content')
     <div class="container">

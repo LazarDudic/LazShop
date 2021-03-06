@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => $product->name])
 
 @section('content')
     <!-- Page Content -->
