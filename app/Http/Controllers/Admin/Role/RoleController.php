@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Role;
+namespace App\Http\Controllers\Admin\Role;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\CreateRoleRequest;
@@ -16,13 +16,13 @@ class RoleController extends Controller
     {
         $roles = Role::all();
 
-        return view('auth.role.index', compact('roles'));
+        return view('admin.role.index', compact('roles'));
     }
 
     public function create()
     {
         $permissions = Permission::all();
-        return view('auth.role.create', compact('permissions'));
+        return view('admin.role.create', compact('permissions'));
     }
 
 
@@ -39,7 +39,7 @@ class RoleController extends Controller
         $rolePermissions = $role->permissions;
         $permissions = Permission::all();
 
-        return view('auth.role.create', compact('role', 'permissions', 'rolePermissions'));
+        return view('admin.role.create', compact('role', 'permissions', 'rolePermissions'));
     }
 
     public function update(UpdateRoleRequest $request, Role $role)

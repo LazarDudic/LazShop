@@ -3,9 +3,10 @@
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\UserAddressController;
 use App\Http\Controllers\Account\UserProfileController;
-use App\Http\Controllers\Auth\Role\RoleController;
+use App\Http\Controllers\Admin\Role\RoleController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishListController;
