@@ -27,9 +27,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('view-wish-list-button', function (User $user, $productId) {
-            if (auth()->user()->wishList->contains('product_id', $productId)) {
+            if ($user->wishListProducts->contains('id', $productId)) {
                 return false;
             }
+
             return true;
         });
 

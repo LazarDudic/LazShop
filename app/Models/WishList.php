@@ -14,4 +14,5 @@ class WishList extends Model
         'product_id'
     ];
 
+    public $timestamps = false;
 }
