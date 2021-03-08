@@ -74,6 +74,7 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('profile.index') }}">{{ auth()->user()->first_name }}</a>
                             <a class="nav-link" href="{{ route('address.index') }}">Address</a>
+                            <a class="nav-link" href="{{ route('wish-list.index') }}">Wish List</a>
                         </nav>
                     </div>
                     <!-- Products -->
@@ -108,7 +109,6 @@
                     </a>
                     <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                             <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
                         </nav>
                     </div>

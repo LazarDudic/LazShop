@@ -59,14 +59,6 @@ class UpdateCartItem extends Component
         }
     }
 
-    public function remove()
-    {
-        $cartItem = $this->getCartItem();
-        Cart::remove($cartItem->rowId);
-        return $this->redirect(route('cart.index'));
-    }
-
-
     public function render()
     {
         $cartItem = $this->getCartItem();

@@ -29,11 +29,4 @@
         </span>
     </div>
 
-    <div class="d-flex justify-content-between">
-        <button wire:click="remove()" type="button" class="btn btn-link btn-sm text-uppercase"><i
-                class="fas fa-trash-alt mr-1"></i> Remove item </button>
-        <button href="#!" type="button" class="btn btn-link btn-sm text-uppercase"><i
-                class="fas fa-heart mr-1"></i> Move to wish list </button>
-    </div>
-
 </div>

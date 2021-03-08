@@ -13,4 +13,10 @@ class CartController extends Controller
 
         return view('cart.index', compact('cartItems'));
     }
+
+    public function destroy($id)
+    {
+        Cart::remove($id);
+        return back()->withSuccess('Item removed successfully.');
+    }
 }

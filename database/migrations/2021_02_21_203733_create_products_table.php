@@ -21,7 +21,9 @@ class CreateProductsTable extends Migration
             $table->decimal('price',10, 2, true);
             $table->unsignedBigInteger('quantity')->default(0);
             $table->boolean('status')->default(0);
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('category_id')
+                  ->constrained()
+                  ->onDelete('cascade');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
 

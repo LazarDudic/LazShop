@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class, 'users_permissions');
     }
 
+    public function wishListProducts()
+    {
+        return $this->belongsToMany(Product::class, 'wish_lists');
+    }
+
     public function isAdmin()
     {
         return $this->role->name === 'admin';
