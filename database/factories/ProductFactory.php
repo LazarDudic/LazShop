@@ -28,7 +28,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->paragraph(3),
             'status' => $this->faker->randomElement([0, 'on']),
             'price' => rand (1*10, 500*10) / 10,
-            'quantity' => rand (0,200),
+            'quantity' => rand (3,200),
             'image' => null,
             'category_id' => rand(1,10),
             'created_by' => 1,
