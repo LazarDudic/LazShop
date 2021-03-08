@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cart;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;

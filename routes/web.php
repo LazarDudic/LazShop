@@ -4,11 +4,11 @@ use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\UserAddressController;
 use App\Http\Controllers\Account\UserProfileController;
 use App\Http\Controllers\Auth\Role\RoleController;
-use App\Http\Controllers\Cart\CartController;
-use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Product\ProductController;
-use App\Http\Controllers\WishList\WishListController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishListController;
 use Illuminate\Support\Facades\Route;
 
 
