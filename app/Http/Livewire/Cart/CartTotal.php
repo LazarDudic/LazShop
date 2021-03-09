@@ -2,19 +2,34 @@
 
 namespace App\Http\Livewire\Cart;
 
+use App\Models\Coupon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
 class CartTotal extends Component
 {
-    protected $listeners = ['UpdateCartItem' => 'render'];
+    protected $listeners = [
+        'UpdateCartItem' => 'render',
+        'AddDiscountCode' => 'render',
+        ];
+
+    public function getSubtotal()
+    {
+        if (session()->has('coupon')) {
+            $coupon = Coupon::where('code', session()->get('coupon'))->first();
+
+            return $coupon->discount();
+        }
+
+        return Cart::subtotal();
+    }
 
     public function render()
     {
-        $subtotal = Cart::subtotal();
+        $subtotal = priceFormat($this->getSubtotal());
         $shipping = priceFormat(shipping($subtotal));
         $tax      = Cart::tax();
-        $total    = priceFormat(Cart::total() + $shipping);
+        $total    = $subtotal + $shipping + $tax;
 
         return view('livewire.cart.cart-total',
             compact('subtotal', 'shipping', 'tax', 'total')
