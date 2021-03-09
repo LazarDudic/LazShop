@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Category;
@@ -10,7 +9,6 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-
     public function index()
     {
         $products = Product::with('createdBy','updatedBy', 'category')
@@ -25,7 +23,8 @@ class ProductController extends Controller
         $categories = Category::all();
 
         if ($categories->count() === 0) {
-            return redirect(route('categories.create'))->withErrors('In order to create product you must create category first.');
+            return redirect(route('categories.create'))
+                ->withErrors('In order to create product you must create category first.');
         }
 
         return view('product.create', compact('categories'));

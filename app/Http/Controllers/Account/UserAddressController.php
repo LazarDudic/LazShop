@@ -39,7 +39,7 @@ class UserAddressController extends Controller
     {
         abort_if($userAddress->isNotFromAuthenticatedUser(), 403);
 
-        UserAddress::updated($request->validated());
+        $userAddress->update($request->validated());
 
         return redirect(route('address.index'))->withSuccess('Address updated successfully');
     }

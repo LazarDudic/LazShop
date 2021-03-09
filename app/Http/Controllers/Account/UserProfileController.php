@@ -42,7 +42,5 @@ class UserProfileController extends Controller
         ]);
 
         return redirect(route('profile.index'))->withSuccess('Password updated successfully');
-
     }
-
 }

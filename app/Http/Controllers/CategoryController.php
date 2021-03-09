@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
@@ -10,7 +9,6 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-
     public function index()
     {
         $categories = Category::all();
@@ -55,7 +53,6 @@ class CategoryController extends Controller
         ]);
 
         return redirect(route('categories.index'))->withSuccess('Category updated successfully');
-
     }
 
     public function destroy(Category $category)

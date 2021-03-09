@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Role;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\CreateRoleRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-
     public function index()
     {
         $roles = Role::all();
@@ -22,15 +20,15 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
+
         return view('admin.role.create', compact('permissions'));
     }
-
 
     public function store(CreateRoleRequest $request)
     {
         $role = Role::create($request->only('name'));
-
         $role->permissions()->sync($request->permissions);
+
         return redirect(route('roles.index'))->withSuccess('Role created successfully.');
     }
 

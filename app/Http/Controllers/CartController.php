@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller

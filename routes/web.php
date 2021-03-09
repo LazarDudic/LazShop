@@ -3,7 +3,7 @@
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\UserAddressController;
 use App\Http\Controllers\Account\UserProfileController;
-use App\Http\Controllers\Admin\Role\RoleController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
@@ -12,16 +12,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishListController;
 use Illuminate\Support\Facades\Route;
 
-
+Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('cart', CartController::class)->only('index', 'destroy');
-Auth::routes();
-
-Route::get('categories/{category}', [CategoryController::class, 'show'])
-    ->name('categories.show');
-
-Route::get('products/{product}', [ProductController::class, 'show'])
-     ->name('products.show');
+Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 Route::middleware('auth')->group(function() {
     Route::get('/account', [AccountController::class, 'index'])->name('account');
@@ -37,9 +32,8 @@ Route::middleware('auth')->group(function() {
         ->name('profile.update-password');
 
     Route::resource('address', UserAddressController::class);
-
-    Route::resource('wish-list', WishListController::class)
-        ->only('index', 'store', 'destroy');
+    Route::resource('wish-list', WishListController::class)->only('index', 'store', 'destroy');
+    Route::resource('coupons', CouponController::class)->except('show');
 });
 
 Route::middleware('admin')->group(function() {

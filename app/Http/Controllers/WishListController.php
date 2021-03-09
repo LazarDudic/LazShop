@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\WishList;
 use Illuminate\Http\Request;
@@ -14,7 +13,6 @@ class WishListController extends Controller
         $products = auth()->user()->wishListProducts;
 
         return view('account.wish-list.index', compact('products'));
-
     }
 
     public function store(Request $request)
