@@ -27,7 +27,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="">Amount</label>
+                <label for="">Amount <span class="text-secondary small">(currency or percentage)</span></label>
                 <input type="number" name="amount" class="form-control" min="1"
                        value="{{ old('amount') ?? $coupon->amount ?? '' }}">
             </div>

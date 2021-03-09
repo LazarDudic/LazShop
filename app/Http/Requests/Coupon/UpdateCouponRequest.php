@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Coupon;
 
+use App\Rules\CouponAmount;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCouponRequest extends FormRequest
@@ -26,7 +27,7 @@ class UpdateCouponRequest extends FormRequest
         return [
             'code'        => ['required', 'string', 'unique:coupons,code,'.$this->coupon->id],
             'type'        => ['required', 'in:fixed,percent'],
-            'amount'      => ['required', 'integer', 'min:1'],
+            'amount'      => ['required', 'integer', 'min:1', new CouponAmount()],
             'expiry_date' => ['nullable', 'required_if:quantity,null', 'date', 'after:today'],
         ];
     }
