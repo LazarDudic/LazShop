@@ -19,7 +19,12 @@ class RegisterTest extends TestCase
             'last_name' => 'Doe',
             'email' => 'example@email.com',
             'password' => 'password',
-            'password_confirmation' => 'password'
+            'password_confirmation' => 'password',
+            'country' => $this->faker->country,
+            'state'   => $this->faker->state,
+            'city'    => $this->faker->city,
+            'address' => $this->faker->address,
+            'zipcode' => $this->faker->postcode,
         ]);
 
         $this->assertEquals(1, User::all()->count());

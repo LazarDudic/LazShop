@@ -58,6 +58,64 @@
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Country</label>
+                                    <input type="text" name="country" placeholder="Country" value="{{ old('country') }}"
+                                           class="form-control @error('country') is-invalid @enderror">
+                                    @error('country')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">State</label>
+                                    <input type="text" name="state" placeholder="State" value="{{ old('state') }}"
+                                        class="form-control @error('state') is-invalid @enderror">
+                                    @error('state')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" name="city" placeholder="City" value="{{ old('city') }}"
+                                           class="form-control @error('city') is-invalid @enderror" >
+                                    @error('city')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Zipcode</label>
+                                    <input type="text" name="zipcode" placeholder="Zipcode"
+                                           value="{{ old('zipcode')}}" class="form-control @error('country') is-invalid @enderror">
+                                    @error('zipcode')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Address</label>
+                            <input type="text" name="address" placeholder="Address" value="{{ old('address') }}
+                                   " class="form-control @error('country') is-invalid @enderror">
+                            @error('address')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+
+
                         <div class="form-group mt-4 mb-0">
                             <button type="submit" class="btn btn-primary btn-block">Create Account</button>
                         </div>

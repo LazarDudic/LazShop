@@ -25,7 +25,7 @@ class UpdateAddressRequest extends FormRequest
     {
         return [
             'country' => ['required', 'string', 'max:255'],
-            'state'   => ['required', 'string', 'max:255'],
+            'state'   => ['nullable', 'string', 'max:255'],
             'city'    => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
             'zipcode' => ['nullable', 'string', 'max:255'],

@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function() {
     Route::patch('profile/{user}/update-password', [UserProfileController::class, 'updatePassword'])
         ->name('profile.update-password');
 
-    Route::resource('address', UserAddressController::class);
+    Route::resource('address', UserAddressController::class)->only('index', 'edit', 'update');
     Route::resource('wish-list', WishListController::class)->only('index', 'store', 'destroy');
     Route::resource('coupons', CouponController::class)->except('show');
 });

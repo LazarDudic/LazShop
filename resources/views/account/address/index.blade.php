@@ -9,18 +9,13 @@
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table mr-1"></i>
-                <a class="btn btn-primary btn-sm float-right"
-                   href="{{ isset($userAddress)
-                                               ? route('address.edit', $userAddress->id)
-                                               : route('address.create') }}"
-                   >
-                    {{ isset($userAddress) ? 'Edit' : 'Create'}}
+                <a class="btn btn-primary btn-sm float-right" href="{{ route('address.edit', $userAddress->id) }}">
+                    Edit
                 </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
-                        @if(isset($userAddress))
                             <tr>
                                 <th>Country</th>
                                 <td>{{ $userAddress->country }}</td>
@@ -41,8 +36,6 @@
                                 <th>Zipcode</th>
                                 <td>{{ $userAddress->zipcode }}</td>
                             </tr>
-                        @endif
-
                     </table>
                 </div>
             </div>
