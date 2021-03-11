@@ -10,7 +10,7 @@
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-success">
                 Discount
-                <span>${{ Cart::subtotal() - $subtotal }}</span>
+                <span>${{ priceFormat(Cart::subtotal() - $subtotal) }}</span>
             </li>
 
             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
