@@ -82,6 +82,7 @@
     <!-- /.container -->
 </footer>
 
+@yield('script')
 @livewireScripts
 <!-- Bootstrap core JavaScript -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>

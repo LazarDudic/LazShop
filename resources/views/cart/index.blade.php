@@ -76,6 +76,9 @@
             <livewire:cart.cart-total />
             <!-- Cart Total End -->
 
+            <!-- Checkout Link -->
+            <a href="{{ route('checkout') }}" class="btn btn-primary btn-block">Checkout</a>
+
             <!-- Add Discount Code -->
             <livewire:discount.add-discount-code />
             <!-- Add Discount Code End -->

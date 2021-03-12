@@ -20,7 +20,7 @@ class Coupon extends Model
     public function discount()
     {
         if ($this->type === 'percent') {
-            return Cart::subtotal() - Cart::subtotal() * ($this->amount / 100);
+            return Cart::subtotal() * ($this->amount / 100);
         }
 
         return Cart::subtotal() - $this->amount;

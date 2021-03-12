@@ -6,6 +6,7 @@ use App\Http\Controllers\Account\UserProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -34,6 +35,9 @@ Route::middleware('auth')->group(function() {
     Route::resource('address', UserAddressController::class)->only('index', 'edit', 'update');
     Route::resource('wish-list', WishListController::class)->only('index', 'store', 'destroy');
     Route::resource('coupons', CouponController::class)->except('show');
+
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('/checkout/purchase', [CheckoutController::class, 'purchase'])->name('checkout.purchase');
 });
 
 Route::middleware('admin')->group(function() {
