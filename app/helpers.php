@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Coupon;
+use Gloudemans\Shoppingcart\Facades\Cart;
+
 if (! function_exists('imagePath')) {
     function imagePath($imagePath)
     {
@@ -29,3 +32,29 @@ if (! function_exists('priceFormat')) {
     }
 }
 
+if (! function_exists('cartNumbers')) {
+    function cartNumbers()
+    {
+        $subtotal = Cart::subtotal();
+        $discount = 0;
+
+        if (session()->has('coupon')) {
+            $coupon = Coupon::where('code', session()->get('coupon'))->first();
+            $discount = priceFormat($coupon->discount());
+            $subtotal = priceFormat($subtotal - $discount);
+        }
+
+        $shipping = priceFormat(shipping($subtotal));
+        $tax      = priceFormat($subtotal * (config('cart.tax') / 100));
+        $total    = $subtotal + $shipping + $tax - $discount;
+
+
+        return collect([
+            'tax' => $tax,
+            'shipping' => $shipping,
+            'discount' => $discount,
+            'subtotal' => $subtotal,
+            'total' => $total,
+        ]);
+    }
+}
