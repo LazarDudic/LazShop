@@ -15,15 +15,20 @@
     </title>
     <!-- TinyMce -->
     <script src="https://cdn.tiny.cloud/1/n63k1bhpjawumspwwbxxciuhly63p6db2n7ft3vkhdrdz6n0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
+    @livewireStyles
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+    <div class="ml-auto">
+        <a class="nav-link mt-2 text-warning" href="{{ route('cart.index') }}">
+            <livewire:cart.cart-nav-link />
+        </a>
+    </div>
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
@@ -60,11 +65,11 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="{{ route('account') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
-                    <!-- User Management -->
+                    <!-- Profile -->
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         Profile
@@ -74,6 +79,7 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('profile.index') }}">{{ auth()->user()->first_name }}</a>
                             <a class="nav-link" href="{{ route('address.index') }}">Address</a>
+                            <a class="nav-link" href="{{ route('user-orders.index') }}">Orders</a>
                             <a class="nav-link" href="{{ route('wish-list.index') }}">Wish List</a>
                         </nav>
                     </div>
@@ -89,6 +95,13 @@
                             <a class="nav-link" href="{{ route('products.create') }}">Create</a>
                         </nav>
                     </div>
+                    <!-- Orders -->
+                    <nav class="nav">
+                        <a class="nav-link" href="{{ route('orders.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Orders
+                        </a>
+                    </nav>
                 <!-- Categories -->
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -152,6 +165,7 @@
         </footer>
     </div>
 </div>
+@livewireScripts
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="{{ asset('js/scripts.js') }}"></script>

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container p-4">
-        <h1>Create Product</h1>
+        <h1>{{isset($product) ? 'Edit Product' : 'Create Product'}}</h1>
         <hr>
             @include('partials.messages')
         <form action="{{ isset($product)

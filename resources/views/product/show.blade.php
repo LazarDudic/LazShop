@@ -9,8 +9,9 @@
             @include('partials.sidebar')
             <!-- sidebar -->
 
-            <div class="col-lg-9 ">
-                <div class="card mt-4">
+            <div class="col-lg-9 mt-5">
+                @include('partials.messages')
+                <div class="card ">
                     <div class="card-body">
                         <div class="d-flex">
                             <img src="{{ imagePath($product->image) }}" alt="{{ $product->name }}" width="400">
@@ -25,6 +26,18 @@
                                     <p class="badge badge-danger">Product unavailable.</p>
                                 @endif
                                 <!-- AddToCartButton end -->
+
+                                @can('view-wish-list-button', $product->id)
+                                    <div class="mt-2">
+                                        <form action="{{ route('wish-list.store') }}" method="POST" >
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <button type="submit" class="btn btn-link btn-sm text-uppercase">
+                                                <i class="fas fa-heart mr-1"></i> Add to wish list
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endcannot
                             </div>
                         </div>
                         <p class="card-text">{!! $product->description !!}</p>

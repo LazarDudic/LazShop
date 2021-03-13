@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cart.index') }}">
+                    <a class="nav-link text-warning" href="{{ route('cart.index') }}">
                         <livewire:cart.cart-nav-link />
                     </a>
                 </li>
