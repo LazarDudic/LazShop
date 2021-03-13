@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                        @foreach($order->orderItems as $orderItem)
+                        @foreach($order->orderItemsAndRelatedProduct as $orderItem)
                             <div class="d-lg-flex justify-content-between align-items-center">
                                 <img src="{{ imagePath(optional($orderItem->product)->image) }}" alt="" height="80">
                                 <h5 class="card-title">{{ $orderItem->product_name }} </h5>

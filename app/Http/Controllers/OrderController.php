@@ -9,7 +9,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('orderItems', 'address')->get();
+        $orders = Order::with('orderItems', 'address', 'user')->get();
 
         return view('order.index', compact('orders'));
     }
@@ -17,7 +17,6 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return view('order.show', compact('order'));
-
     }
 
     public function edit(Order $order)

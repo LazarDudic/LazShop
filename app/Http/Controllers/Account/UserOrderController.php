@@ -8,8 +8,8 @@ class UserOrderController extends Controller
 {
     public function index()
     {
-        $orders = auth()->user()->orders()
-                                ->with('address', 'orderItems')
+         $orders = auth()->user()->orders()
+                                ->with('address', 'orderItemsAndRelatedProduct')
                                 ->where('user_id', auth()->id())
                                 ->get();
 

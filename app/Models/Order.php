@@ -29,6 +29,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function orderItemsAndRelatedProduct()
+    {
+        return $this->hasMany(OrderItem::class)->with('product');
+    }
+
     public function address()
     {
         return $this->hasOne(OrderAddress::class);
