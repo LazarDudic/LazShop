@@ -51,7 +51,7 @@ class CheckoutController extends Controller
 
         Cart::destroy();
 
-        return redirect(route('home'))->with('success', 'The order placed successfully! Thank you!');
+        return redirect(route('user-orders.index'))->with('success', 'The order placed successfully! Thank you!');
     }
 
     private function requestedItemsAreNotAvailable()
@@ -72,8 +72,6 @@ class CheckoutController extends Controller
         $order = Order::create([
             'total_price'    => $cart['total'],
             'status'         => 'paid',
-            'first_name'     => $user->first_name,
-            'last_name'      => $user->last_name,
             'email'          => $user->email,
             'transaction_id' => $stripe->id,
             'user_id'        => $user->id

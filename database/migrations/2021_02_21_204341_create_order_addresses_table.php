@@ -20,7 +20,7 @@ class CreateOrderAddressesTable extends Migration
                 ->onDelete('cascade');
             $table->string('address');
             $table->string('city');
-            $table->string('state');
+            $table->string('state')->nullable();
             $table->string('country');
             $table->string('zipcode')->nullable();
             $table->timestamps();

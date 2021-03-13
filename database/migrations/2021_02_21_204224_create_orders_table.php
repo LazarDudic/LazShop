@@ -17,8 +17,6 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->decimal('total_price', 10, 2, true);
             $table->string('status');
-            $table->string('first_name');
-            $table->string('last_name');
             $table->string('email');
             $table->string('transaction_id')->nullable();
             $table->foreignId('user_id')
