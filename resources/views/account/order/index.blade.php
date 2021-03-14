@@ -23,10 +23,10 @@
                                 <p>Unit Price: <span class="text-success">${{ $orderItem->unit_price }}</span></p>
                                 <p>Quantity: {{ $orderItem->quantity }}</p>
                             </div>
-                            @if(optional($orderItem->product)->quantity)
+                            @if(optional($orderItem->product)->quantity && optional($orderItem->product)->status)
                                 <a href="#" class="btn btn-primary btn-sm mt-2">Buy again</a>
                             @else
-                                <div class="badge badge-danger">Unavailable</div>
+                                <div class="badge badge-danger">Sold Out</div>
                             @endif
                             <hr>
                         @endforeach

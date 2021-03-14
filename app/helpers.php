@@ -46,7 +46,7 @@ if (! function_exists('cartNumbers')) {
 
         $shipping = priceFormat(shipping($subtotal));
         $tax      = priceFormat($subtotal * (config('cart.tax') / 100));
-        $total    = $subtotal + $shipping + $tax - $discount;
+        $total    = priceFormat($subtotal + $shipping + $tax - $discount);
 
 
         return collect([
