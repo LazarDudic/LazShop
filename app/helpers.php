@@ -17,7 +17,7 @@ if (! function_exists('imagePath')) {
 if (! function_exists('shipping')) {
     function shipping($productPrice)
     {
-        return $productPrice * (env('SHIPPING') / 100);
+        return $productPrice * (config('app.shipping') / 100);
     }
 }
 
