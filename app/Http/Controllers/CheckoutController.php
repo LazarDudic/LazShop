@@ -26,7 +26,7 @@ class CheckoutController extends Controller
     {
         if ($itemName = $this->requestedItemsAreNotAvailable()) {
             return redirect(route('cart.index'))
-                ->withErrors('Item '.$itemName.' is sold out or available quantity is less then requested.');
+                ->withErrors('Item ' . $itemName . ' is sold out or available quantity is less then requested.');
         }
 
         $user = auth()->user();
@@ -70,7 +70,10 @@ class CheckoutController extends Controller
         $user = auth()->user();
 
         $order = Order::create([
-            'total_price'    => $cart['total'],
+            'total'          => $cart['total'],
+            'subtotal'       => $cart['subtotal'],
+            'tax'            => $cart['tax'],
+            'shipping'       => $cart['shipping'],
             'status'         => 'paid',
             'email'          => $user->email,
             'transaction_id' => $stripe->id,
@@ -79,11 +82,11 @@ class CheckoutController extends Controller
 
         OrderAddress::create([
             'order_id' => $order->id,
-            'address' => $user->address->address,
-            'city' => $user->address->city,
-            'state' => $user->address->state,
-            'country' => $user->address->country,
-            'zipcode' => $user->address->zipcode,
+            'address'  => $user->address->address,
+            'city'     => $user->address->city,
+            'state'    => $user->address->state,
+            'country'  => $user->address->country,
+            'zipcode'  => $user->address->zipcode,
         ]);
 
         foreach (Cart::content() as $row) {

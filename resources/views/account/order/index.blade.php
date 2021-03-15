@@ -30,7 +30,7 @@
                             @endif
                             <hr>
                         @endforeach
-                            <h4>Total Paid: ${{ $order->total_price }}</h4>
+                            <h4>Total Paid: ${{ $order->total }}</h4>
                         </div>
                     </div>
                     <hr>

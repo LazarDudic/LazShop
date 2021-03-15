@@ -35,7 +35,7 @@
                             <th>{{ $order->id }}</th>
                             <td class="small">{{ $order->transaction_id }}</td>
                             <td><div class="badge badge-info">{{ $order->status }} </div></td>
-                            <td class="text-success">${{ $order->total_price }}</td>
+                            <td class="text-success">${{ $order->total }}</td>
                             <td>{{ $order->user->fullName() }}</td>
 
                             <td class="d-flex">

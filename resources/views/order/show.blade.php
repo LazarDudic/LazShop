@@ -25,7 +25,7 @@
                         </tr>
                         <tr>
                             <th>Total Price</th>
-                            <td>${{ $order->total_price }}</td>
+                            <td>${{ $order->total }}</td>
                         </tr>
                         <tr>
                             <th>Customer</th>
