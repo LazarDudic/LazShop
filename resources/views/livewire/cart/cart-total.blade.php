@@ -9,10 +9,11 @@
                 <span>${{ Cart::subtotal() }}</span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-success">
-                Discount
-                <span>${{ $cart['discount'] }}</span>
+                Discount({{ session()->get('coupon') }})
+                <span>-${{ $cart['discount'] }}</span>
             </li>
-
+            <!-- Remove Discount Component -->
+            <livewire:cart.remove-discount />
             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                 New Subtotal
                 <span>${{ $cart['subtotal'] }}</span>

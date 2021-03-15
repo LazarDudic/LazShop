@@ -7,9 +7,10 @@ use Livewire\Component;
 class CartTotal extends Component
 {
     protected $listeners = [
-        'UpdateCartItem' => 'render',
+        'UpdateCartItem'  => 'render',
         'AddDiscountCode' => 'render',
-        ];
+        'RemoveDiscount'  => 'render',
+    ];
 
     public function render()
     {

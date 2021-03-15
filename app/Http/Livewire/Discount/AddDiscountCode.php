@@ -9,6 +9,10 @@ class AddDiscountCode extends Component
 {
     public $discountCode;
 
+    protected $listeners = [
+        'RemoveDiscount' => 'render'
+    ];
+
     protected $rules = [
         'discountCode' => ['required', 'string'],
     ];
@@ -26,6 +30,8 @@ class AddDiscountCode extends Component
         $this->emit('AddDiscountCode');
 
         session()->put('coupon', $this->discountCode);
+
+        $this->discountCode = '';
     }
 
     public function render()
