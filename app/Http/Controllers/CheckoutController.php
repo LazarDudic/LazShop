@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmail;
+use App\Mail\OrderPlaced;
 use App\Models\Order;
 use App\Models\OrderAddress;
 use App\Models\OrderItem;
@@ -43,7 +45,11 @@ class CheckoutController extends Controller
             return back()->with('error', $exception->getMessage());
         }
 
-        $this->storeOrderDetails($stripe, $cart);
+        $order = $this->storeOrderDetails($stripe, $cart);
+
+        $email = new OrderPlaced($order);
+        $emailJob = (new SendEmail($email))->delay(now()->addSeconds(5));
+        dispatch($emailJob);
 
         session()->forget('coupon');
 
@@ -92,12 +98,14 @@ class CheckoutController extends Controller
         foreach (Cart::content() as $row) {
             OrderItem::create([
                 'product_name' => $row->model->name,
-                'product_id' => $row->model->id,
-                'unit_price' => $row->model->price,
-                'order_id' => $order->id,
-                'quantity' => $row->model->quantity,
+                'product_id'   => $row->model->id,
+                'unit_price'   => $row->model->price,
+                'order_id'     => $order->id,
+                'quantity'     => $row->qty,
             ]);
         }
+
+        return $order;
     }
 
     private function decreaseProductsQuantity()
