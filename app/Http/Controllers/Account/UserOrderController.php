@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 
 class UserOrderController extends Controller
 {
@@ -14,5 +15,14 @@ class UserOrderController extends Controller
                                 ->get();
 
         return view('account.order.index', compact('orders'));
+    }
+
+    public function show(Order $userOrder)
+    {
+        abort_if($userOrder->notFromThisUser(), 403);
+
+        return view('account.order.show' , [
+            'order' => $userOrder
+        ]);
     }
 }

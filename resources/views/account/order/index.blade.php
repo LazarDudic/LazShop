@@ -30,7 +30,14 @@
                             @endif
                             <hr>
                         @endforeach
-                            <h4>Total Paid: ${{ $order->total }}</h4>
+                            <div class="d-flex justify-content-between">
+                                <h4>Total Paid: ${{ $order->total }}</h4>
+                                <div>
+                                    <a href="{{ route('user-orders.show', $order->id) }}" class="btn btn-info
+                                    btn-sm">View
+                                        Details</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr>

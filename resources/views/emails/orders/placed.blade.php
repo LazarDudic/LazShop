@@ -23,7 +23,7 @@ Order items:
 <li>Total: <strong>${{ $order->total }}</strong></li>
 </ul>
 
-@component('mail::button', ['url' => route('user-orders.index')])
+@component('mail::button', ['url' => route('user-orders.show', $order->id)])
 View Order
 @endcomponent
 

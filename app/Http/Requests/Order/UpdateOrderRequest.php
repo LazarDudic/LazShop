@@ -24,12 +24,14 @@ class UpdateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'status'  => ['required', 'in:paid,shipped,delivered,dispute,refunded'],
-            'country' => ['required', 'string', 'max:255'],
-            'state'   => ['nullable', 'string', 'max:255'],
-            'city'    => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string', 'max:255'],
-            'zipcode' => ['nullable', 'string', 'max:255'],
+            'status'     => ['required', 'in:paid,shipped,delivered,dispute,refunded'],
+            'shipped_at' => ['nullable', 'date', 'required_if:status,shipped'],
+            'deliver_at' => ['nullable', 'date'],
+            'country'    => ['required', 'string', 'max:255'],
+            'state'      => ['nullable', 'string', 'max:255'],
+            'city'       => ['required', 'string', 'max:255'],
+            'address'    => ['required', 'string', 'max:255'],
+            'zipcode'    => ['nullable', 'string', 'max:255'],
         ];
     }
 }

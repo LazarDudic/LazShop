@@ -28,6 +28,17 @@
                     </option>
                 </select>
 
+                <div class="form-group">
+                    <label for="">Shipped at</label>
+                    <input type="date" name="shipped_at" class="form-control"
+                           value="{{ $order->shippingDates->shipped_at ?? old('shipped_at') }}">
+                </div>
+                <div class="form-group">
+                    <label for="">Estimated delivery time</label>
+                    <input type="date" name="deliver_at" class="form-control"
+                           value="{{ $order->shippingDates->deliver_at ?? old('deliver_at') }}">
+                </div>
+
                 <h3>Send to:</h3>
                 <div class="form-group">
                     <label for="">Country</label>

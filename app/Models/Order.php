@@ -22,6 +22,10 @@ class Order extends Model
         'user_id',
     ];
 
+    public function notFromThisUser()
+    {
+        return $this->user_id != auth()->id();
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -35,6 +39,11 @@ class Order extends Model
     public function orderItemsAndRelatedProduct()
     {
         return $this->hasMany(OrderItem::class)->with('product');
+    }
+
+    public function shippingDates()
+    {
+        return $this->hasOne(Shipping::class);
     }
 
     public function address()

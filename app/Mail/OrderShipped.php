@@ -8,11 +8,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderPlaced extends Mailable
+class OrderShipped extends Mailable
 {
     use Queueable, SerializesModels;
 
     private $order;
+
     /**
      * Create a new message instance.
      *
@@ -31,8 +32,8 @@ class OrderPlaced extends Mailable
     public function build()
     {
         return $this->to($this->order->email)
-                    ->subject('Order Placed '.env('app.name'))
-                    ->markdown('emails.orders.placed', [
+                    ->subject('Order Shipped '.env('app.name'))
+                    ->markdown('emails.orders.shipped', [
                         'order' => $this->order
                     ]);
     }

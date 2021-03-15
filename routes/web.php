@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
     Route::post('/checkout/purchase', [CheckoutController::class, 'purchase'])->name('checkout.purchase');
 
-    Route::resource('user-orders', UserOrderController::class)->only('index');
+    Route::resource('user-orders', UserOrderController::class)->only('index', 'show');
     Route::resource('orders', OrderController::class);
 
 });

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Order\UpdateOrderRequest;
+use App\Jobs\SendEmail;
+use App\Mail\OrderShipped;
 use App\Models\Order;
+use App\Models\Shipping;
 
 class OrderController extends Controller
 {
@@ -26,9 +29,25 @@ class OrderController extends Controller
 
     public function update(UpdateOrderRequest $request, Order $order)
     {
+
         $order->update([
             'status' => $request->status
         ]);
+
+        Shipping::updateOrCreate([
+            'order_id' => $order->id
+        ],[
+            'order_id' => $order->id,
+            'order_address_id' => $order->address->id,
+            'shipped_at' => $request->shipped_at,
+            'deliver_at' => $request->deliver_at,
+            ]);
+
+        if ($request->status == 'shipped') {
+            $email = new OrderShipped($order);
+            $emailJob = (new SendEmail($email))->delay(now()->addSeconds(5));
+            dispatch($emailJob);
+        }
 
         return back()->withSuccess('Order updated successfully');
     }
