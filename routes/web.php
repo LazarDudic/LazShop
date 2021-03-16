@@ -5,6 +5,7 @@ use App\Http\Controllers\Account\UserAddressController;
 use App\Http\Controllers\Account\UserOrderController;
 use App\Http\Controllers\Account\UserProfileController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function() {
 
 Route::middleware('admin')->group(function() {
     Route::resource('roles', RoleController::class)->except('show');
+    Route::resource('users', UserController::class);
+
 });
 
 Auth::routes();

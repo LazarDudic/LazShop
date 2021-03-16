@@ -55,6 +55,13 @@ class User extends Authenticatable
         return $this->id !== auth()->id();
     }
 
+    public function hasOngoingOrder()
+    {
+        return $this->orders->contains(function($value, $key) {
+            return in_array($value->status , ['paid', 'shipped', 'dispute']);
+        });
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);
