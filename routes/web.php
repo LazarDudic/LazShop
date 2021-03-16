@@ -4,6 +4,7 @@ use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\UserAddressController;
 use App\Http\Controllers\Account\UserOrderController;
 use App\Http\Controllers\Account\UserProfileController;
+use App\Http\Controllers\Account\WishListController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
@@ -13,7 +14,6 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\WishListController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/products/{product}/delete-image', [ProductController::class, 'deleteImage'])
         ->name('products.delete-image');
 
-    Route::resource('profile', UserProfileController::class);
+    Route::resource('profile', UserProfileController::class)->only('index', 'edit', 'update');
     Route::patch('/profile/{user}/update-password', [UserProfileController::class, 'updatePassword'])
         ->name('profile.update-password');
 
@@ -37,13 +37,13 @@ Route::middleware('auth')->group(function() {
     Route::post('/checkout/purchase', [CheckoutController::class, 'purchase'])->name('checkout.purchase');
 
     Route::resource('user-orders', UserOrderController::class)->only('index', 'show');
-    Route::resource('orders', OrderController::class);
+    Route::resource('orders', OrderController::class)->only('index', 'show', 'edit', 'update');
 
 });
 
 Route::middleware('admin')->group(function() {
     Route::resource('roles', RoleController::class)->except('show');
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->only('index', 'edit', 'update', 'destroy');
 
 });
 
