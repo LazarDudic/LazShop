@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Cart;
+namespace App\Http\Livewire\Discount;
 
 use Livewire\Component;
 
@@ -13,6 +13,6 @@ class RemoveDiscount extends Component
     }
     public function render()
     {
-        return view('livewire.cart.remove-discount');
+        return view('livewire.discount.remove-discount');
     }
 }

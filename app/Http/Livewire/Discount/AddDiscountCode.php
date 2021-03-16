@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Discount;
 
 use App\Models\Coupon;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
 class AddDiscountCode extends Component
@@ -19,11 +20,15 @@ class AddDiscountCode extends Component
 
     public function addCode()
     {
+        if (Cart::count() == 0) {
+            return $this->addError('discountCode', 'Coupon can not be applied if cart is empty.');
+        }
+
         $this->validate();
 
         $coupon = Coupon::where('code', $this->discountCode)->first();
 
-        if (! $coupon) {
+        if (! $coupon || $coupon->code !== $this->discountCode) {
             return $this->addError('discountCode', 'The coupon is invalid.');
         }
 
