@@ -34,6 +34,8 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
+        abort_if(in_array($role->name, ['admin', 'buyer']), 403);
+
         $rolePermissions = $role->permissions;
         $permissions = Permission::all();
 
@@ -42,6 +44,8 @@ class RoleController extends Controller
 
     public function update(UpdateRoleRequest $request, Role $role)
     {
+        abort_if(in_array($role->name, ['admin', 'buyer']), 403);
+
         $role->update($request->only('name'));
         $role->permissions()->sync($request->permissions);
 
@@ -50,6 +54,8 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
+        abort_if(in_array($role->name, ['admin', 'buyer']), 403);
+
         $role->delete();
         return redirect(route('roles.index'))->withSuccess('Role deleted successfully.');
     }

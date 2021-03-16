@@ -39,10 +39,13 @@
                                    class="btn btn-secondary btn-sm mr-2" title="View">
                                     <i class="fas fa-eye"></i>
                                 </a>
+                                @can('category_edit')
                                 <a href="{{ route('categories.edit', $category->slug) }}"
                                    class="btn btn-info btn-sm mr-2" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                @endcan
+                                @can('category_delete')
                                 <form action="{{ route('categories.destroy', $category->slug) }}" method="POST"
                                     onsubmit="return confirm('You\'ll delete all products which belongs to this category as well.Are you sure?')">
                                     @method('DELETE')
@@ -51,6 +54,7 @@
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @empty

@@ -70,76 +70,102 @@
                         Dashboard
                     </a>
                     <!-- Profile -->
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Profile
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseProfile" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ route('profile.index') }}">{{ auth()->user()->first_name }}</a>
-                            <a class="nav-link" href="{{ route('address.index') }}">Address</a>
-                            <a class="nav-link" href="{{ route('user-orders.index') }}">Orders</a>
-                            <a class="nav-link" href="{{ route('wish-list.index') }}">Wish List</a>
-                        </nav>
-                    </div>
-                    <!-- Products -->
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Products
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseProducts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ route('products.index') }}">Show</a>
-                            <a class="nav-link" href="{{ route('products.create') }}">Create</a>
-                        </nav>
-                    </div>
-                    <!-- Orders -->
                     <nav class="nav">
-                        <a class="nav-link" href="{{ route('orders.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        <a class="nav-link" href="{{ route('profile.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            Profile
+                        </a>
+                    </nav>
+                @if(auth()->user()->hasRole('buyer'))
+                    <!-- Address -->
+                    <nav class="nav">
+                        <a class="nav-link" href="{{ route('address.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
+                            Address
+                        </a>
+                    </nav>
+                    <!-- User Orders -->
+                    <nav class="nav">
+                        <a class="nav-link" href="{{ route('user-orders.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-basket"></i></div>
                             Orders
                         </a>
                     </nav>
-                <!-- Categories -->
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Categories
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseCategories" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ route('categories.index') }}">Show</a>
-                            <a class="nav-link" href="{{ route('categories.create') }}">Create</a>
+                    <!-- Wish List -->
+                    <nav class="nav">
+                        <a class="nav-link" href="{{ route('wish-list.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-gift"></i></div>
+                            Wish List
+                        </a>
+                    </nav>
+                    @endif
+                    @can('product_access')
+                        <!-- Products -->
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fab fa-product-hunt"></i></div>
+                            Products
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseProducts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('products.index') }}">Show</a>
+                                <a class="nav-link" href="{{ route('products.create') }}">Create</a>
+                            </nav>
+                        </div>
+                    @endcan
+                    @can('order_access')
+                        <!-- Orders -->
+                        <nav class="nav">
+                            <a class="nav-link" href="{{ route('orders.index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-shopping-basket"></i></div>
+                                Orders
+                            </a>
                         </nav>
-                    </div>
-                    <!-- Coupons -->
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCoupons"
-                       aria-expanded="false" aria-controls="collapseCoupons">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Coupons
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseCoupons" aria-labelledby="headingOne"
-                         data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ route('coupons.index') }}">Show</a>
-                            <a class="nav-link" href="{{ route('coupons.create') }}">Create</a>
-                        </nav>
-                    </div>
-                    <!-- User Management -->
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Users Management
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ route('users.index') }}">Users</a>
-                            <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
-                        </nav>
-                    </div>
+                    @endcan
+                    @can('category_access')
+                        <!-- Categories -->
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                            Categories
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseCategories" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('categories.index') }}">Show</a>
+                                <a class="nav-link" href="{{ route('categories.create') }}">Create</a>
+                            </nav>
+                        </div>
+                    @endcan
+                    @can('coupon_access')
+                        <!-- Coupons -->
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCoupons"
+                           aria-expanded="false" aria-controls="collapseCoupons">
+                            <div class="sb-nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
+                            Coupons
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseCoupons" aria-labelledby="headingOne"
+                             data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('coupons.index') }}">Show</a>
+                                <a class="nav-link" href="{{ route('coupons.create') }}">Create</a>
+                            </nav>
+                        </div>
+                    @endcan
+                    @if(auth()->user()->hasRole('admin'))
+                        <!-- User Management -->
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
+                            Users Management
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+                                <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
+                            </nav>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="sb-sidenav-footer">

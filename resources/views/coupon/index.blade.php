@@ -41,11 +41,14 @@
                                 <td>{{ $coupon->amount }}</td>
                                 <td>{{ $coupon->expiry_date }}</td>
                                 <td class="d-flex">
-                                    <a href="{{ route('coupons.edit', $coupon->id) }}"
-                                       class="btn btn-info btn-sm mr-2" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="{{ route('coupons.destroy', $coupon->id) }}" method="POST"
+                                    @can('coupon_edit')
+                                        <a href="{{ route('coupons.edit', $coupon->id) }}"
+                                           class="btn btn-info btn-sm mr-2" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    @endcan
+                                    @can('coupon_delete')
+                                        <form action="{{ route('coupons.destroy', $coupon->id) }}" method="POST"
                                           onsubmit="return confirm('Are you sure?')">
                                         @method('DELETE')
                                         @csrf
@@ -53,6 +56,7 @@
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

@@ -73,19 +73,23 @@
                                        class="btn btn-secondary btn-sm mr-2" title="View">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('products.edit', $product->id) }}"
-                                       class="btn btn-info btn-sm mr-2"
-                                       title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST"
-                                          onsubmit="return confirm('Are you sure?')">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button class="btn btn-danger btn-sm" type="submit" title="Delete">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
+                                    @can('product-edit')
+                                        <a href="{{ route('products.edit', $product->id) }}"
+                                           class="btn btn-info btn-sm mr-2"
+                                           title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    @endcan
+                                    @can('product_delete')
+                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                                              onsubmit="return confirm('Are you sure?')">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-danger btn-sm" type="submit" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

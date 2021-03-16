@@ -33,7 +33,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $role->name }}</td>
-                                @if($role->name != 'admin')
+                                @if(! in_array($role->name, ['admin', 'buyer']))
                                     <td class="d-flex">
                                         <a href="{{ route('roles.edit', $role->id) }}"
                                            class="btn btn-info btn-sm mr-2" title="Edit">

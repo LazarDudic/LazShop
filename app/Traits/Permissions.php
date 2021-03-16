@@ -7,7 +7,7 @@ trait Permissions
     public function hasRole(...$roles)
     {
         foreach ($roles as $role) {
-            if ($this->roles->name == $role) {
+            if ($this->role->name == $role) {
                 return true;
             }
         }
@@ -17,7 +17,7 @@ trait Permissions
 
     public function hasPermission(string $permission)
     {
-        return $this->roles->permissions->contains('name', $permission);
+        return $this->role->permissions->contains('name', $permission);
     }
 
 }

@@ -6,11 +6,14 @@ use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
     public function index()
     {
+        abort_if(Gate::denies('product_access'), 403);
+
         $products = Product::with('createdBy','updatedBy', 'category')
                            ->orderByDesc('updated_at')
                            ->get();
@@ -20,6 +23,8 @@ class ProductController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('product_create'), 403);
+
         $categories = Category::all();
 
         if ($categories->count() === 0) {
@@ -32,6 +37,8 @@ class ProductController extends Controller
 
     public function store(CreateProductRequest $request)
     {
+        abort_if(Gate::denies('product_create'), 403);
+
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -52,6 +59,8 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        abort_if(Gate::denies('product_edit'), 403);
+
         $categories = Category::all();
 
         return view('product.create', compact('product', 'categories'));
@@ -59,6 +68,8 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product)
     {
+        abort_if(Gate::denies('product_edit'), 403);
+
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -74,6 +85,8 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        abort_if(Gate::denies('product_delete'), 403);
+
         $product->deleteImage();
         $product->delete();
         return redirect(route('products.index'))->withSuccess('Product deleted successfully.');

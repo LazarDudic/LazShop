@@ -7,11 +7,14 @@ use App\Jobs\SendEmail;
 use App\Mail\OrderShipped;
 use App\Models\Order;
 use App\Models\Shipping;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
     public function index()
     {
+        abort_if(Gate::denies('order_access'), 403);
+
         $orders = Order::with('orderItems', 'address', 'user')->get();
 
         return view('order.index', compact('orders'));
@@ -19,16 +22,21 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        abort_if(Gate::denies('order_access'), 403);
+
         return view('order.show', compact('order'));
     }
 
     public function edit(Order $order)
     {
+        abort_if(Gate::denies('order_edit'), 403);
+
         return view('order.edit', compact('order'));
     }
 
     public function update(UpdateOrderRequest $request, Order $order)
     {
+        abort_if(Gate::denies('order_edit'), 403);
 
         $order->update([
             'status' => $request->status
