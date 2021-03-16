@@ -29,15 +29,17 @@ Route::middleware('auth')->group(function() {
     Route::patch('/profile/{user}/update-password', [UserProfileController::class, 'updatePassword'])
         ->name('profile.update-password');
 
-    Route::resource('address', UserAddressController::class)->only('index', 'edit', 'update');
-    Route::resource('wish-list', WishListController::class)->only('index', 'store', 'destroy');
-    Route::resource('coupons', CouponController::class)->except('show');
-
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-    Route::post('/checkout/purchase', [CheckoutController::class, 'purchase'])->name('checkout.purchase');
-
     Route::resource('user-orders', UserOrderController::class)->only('index', 'show');
     Route::resource('orders', OrderController::class)->only('index', 'show', 'edit', 'update');
+
+    Route::middleware('buyer')->group(function() {
+        Route::resource('address', UserAddressController::class)->only('index', 'edit', 'update');
+        Route::resource('wish-list', WishListController::class)->only('index', 'store', 'destroy');
+        Route::resource('coupons', CouponController::class)->except('show');
+
+        Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+        Route::post('/checkout/purchase', [CheckoutController::class, 'purchase'])->name('checkout.purchase');
+    });
 
 });
 

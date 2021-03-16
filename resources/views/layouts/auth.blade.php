@@ -24,11 +24,13 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-    <div class="ml-auto">
-        <a class="nav-link mt-2 text-warning" href="{{ route('cart.index') }}">
-            <livewire:cart.cart-nav-link />
-        </a>
-    </div>
+    @if(auth()->user()->hasRole('buyer'))
+        <div class="ml-auto">
+            <a class="nav-link mt-2 text-warning" href="{{ route('cart.index') }}">
+                <livewire:cart.cart-nav-link />
+            </a>
+        </div>
+    @endif
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
