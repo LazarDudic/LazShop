@@ -46,7 +46,18 @@
                                             <i class="fas fa-trash-alt mr-1"></i> Remove item
                                         </button>
                                     </form>
-                                    @can('view-wish-list-button', $item->id)
+                                    @auth
+                                        @if(! auth()->user()->wishListProducts->contains('id', $item->id))
+                                            <form action="{{ route('wish-list.store') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $item->id }}">
+                                                <button type="submit" class="btn btn-link btn-sm text-uppercase">
+                                                    <i class="fas fa-heart mr-1"></i> Add to wish list
+                                                </button>
+                                            </form>
+                                        @endif
+                                    @endauth
+                                    @guest
                                         <form action="{{ route('wish-list.store') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $item->id }}">
@@ -54,7 +65,7 @@
                                                 <i class="fas fa-heart mr-1"></i> Add to wish list
                                             </button>
                                         </form>
-                                    @endcannot
+                                    @endguest
                                 </div>
                             </div>
                         </div>

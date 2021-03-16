@@ -25,14 +25,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Gate::define('view-wish-list-button', function (User $user, $productId) {
-            if ($user->wishListProducts->contains('id', $productId)) {
-                return false;
-            }
-
-            return true;
-        });
-
     }
 }
