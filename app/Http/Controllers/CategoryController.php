@@ -22,9 +22,8 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $categories = Category::all();
-        $products = $category->products;
 
-        return view('category.show', compact('categories', 'products', 'category'));
+        return view('category.show', compact('categories', 'category'));
     }
 
     public function create()

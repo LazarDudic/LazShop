@@ -22,10 +22,10 @@
             <div class="form-group">
                 <label for="">Type</label>
                 <select class="form-control" name="type">
-                    <option value="fixed" {{ $coupon->type == 'fixed' ? 'selected' : '' }}>
+                    <option value="fixed" {{ (isset($coupon) && $coupon->type == 'fixed') ? 'selected' : '' }}>
                         Fixed
                     </option>
-                    <option value="percent" {{ $coupon->type == 'percent' ? 'selected' : '' }}>
+                    <option value="percent" {{ (isset($coupon) && $coupon->type == 'percent') ? 'selected' : '' }}>
                         Percent
                     </option>
                 </select>
