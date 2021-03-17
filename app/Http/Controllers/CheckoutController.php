@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendEmail;
-use App\Mail\OrderPlaced;
+use App\Events\Ordered;
 use App\Models\Order;
 use App\Models\OrderAddress;
 use App\Models\OrderItem;
@@ -47,15 +46,7 @@ class CheckoutController extends Controller
 
         $order = $this->storeOrderDetails($stripe, $cart);
 
-        $email = new OrderPlaced($order);
-        $emailJob = (new SendEmail($email))->delay(now()->addSeconds(5));
-        dispatch($emailJob);
-
-        session()->forget('coupon');
-
-        $this->decreaseProductsQuantity();
-
-        Cart::destroy();
+        event(new Ordered($order));
 
         return redirect(route('user-orders.index'))->with('success', 'The order placed successfully! Thank you!');
     }
@@ -106,15 +97,5 @@ class CheckoutController extends Controller
         }
 
         return $order;
-    }
-
-    private function decreaseProductsQuantity()
-    {
-        foreach (Cart::content() as $row) {
-            $qty = $row->model->quantity - $row->qty;
-            $row->model->update([
-                'quantity' => $qty
-            ]);
-        }
     }
 }
