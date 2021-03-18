@@ -2,13 +2,27 @@
 
 @section('content')
     <div class="container p-4">
-        <h1>Roles</h1>
+        <h1>Users</h1>
         <hr>
         @include('partials.messages')
         <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-table mr-1"></i>
-                Roles Table
+            <div class="card-header d-lg-flex justify-content-between">
+                <form action="{{ route('users.search') }}" method="GET" class="form-inline">
+                    <input name="search" type="text" placeholder="search..." class="form-control mr-lg-1"
+                           value="{{ request()->search }}">
+                    Sort by:
+                    <select name="sort_role" class="form-control ml-lg-1">
+                        <option value="">
+                            All
+                        </option>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->id }}" {{ request()->sort_role == $role->id ? 'selected' : '' }}>
+                            {{ ucwords($role->name) }}
+                        </option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-info btn ml-1">Search</button>
+                </form>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -18,6 +32,7 @@
                             <th>#</th>
                             <th>Full Name</th>
                             <th>Role</th>
+                            <th>Signed Up</th>
                             <th class="w-lg-25">Action</th>
                         </tr>
                         </thead>
@@ -26,6 +41,7 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Role</th>
+                            <th>Signed Up</th>
                             <th>Action</th>
                         </tr>
                         </tfoot>
@@ -35,6 +51,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->fullName() }}</td>
                                 <td>{{ $user->role->name }}</td>
+                                <td>{{ $user->created_at->format('Y.m.d H:i') }}</td>
                                 @if($user->first_name != 'admin')
                                     <td class="d-flex">
                                         <a href="{{ route('users.edit', $user->id) }}"
@@ -56,6 +73,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $users->links() }}
             </div>
         </div>
     </div>

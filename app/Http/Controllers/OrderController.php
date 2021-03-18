@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Order\SearchOrderRequest;
 use App\Http\Requests\Order\UpdateOrderRequest;
 use App\Jobs\SendEmail;
 use App\Mail\OrderShipped;
@@ -15,7 +16,10 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_access'), 403);
 
-        $orders = Order::with('orderItems', 'address', 'user')->get();
+        $orders = Order::with('orderItems', 'address', 'user')
+                       ->orderByDesc('created_at')
+                       ->paginate(20)
+                       ->withQueryString();;
 
         return view('order.index', compact('orders'));
     }
@@ -44,12 +48,12 @@ class OrderController extends Controller
 
         Shipping::updateOrCreate([
             'order_id' => $order->id
-        ],[
-            'order_id' => $order->id,
+        ], [
+            'order_id'         => $order->id,
             'order_address_id' => $order->address->id,
-            'shipped_at' => $request->shipped_at,
-            'deliver_at' => $request->deliver_at,
-            ]);
+            'shipped_at'       => $request->shipped_at,
+            'deliver_at'       => $request->deliver_at,
+        ]);
 
         if ($request->status == 'shipped') {
             $email = new OrderShipped($order);
@@ -60,4 +64,23 @@ class OrderController extends Controller
         return back()->withSuccess('Order updated successfully');
     }
 
+    public function search(SearchOrderRequest $request)
+    {
+        abort_if(Gate::denies('order_access'), 403);
+
+        $orders = Order::with('orderItems', 'address', 'user')
+                       ->where('transaction_id', $request->search)
+                       ->orWhereHas('user', function($query) use ($request) {
+                           $query->whereRaw('concat(first_name, " ", last_name) like ?',
+                               ['%' . $request->search . '%']);
+                       })
+                       ->when($request->sort_status, function($query) use ($request) {
+                           $query->where('status', $request->sort_status);
+                       })
+                       ->orderByDesc('created_at')
+                       ->paginate(20)
+                       ->withQueryString();
+
+        return view('order.index', compact('orders'));
+    }
 }

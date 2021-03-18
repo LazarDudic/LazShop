@@ -13,7 +13,7 @@ class CouponController extends Controller
     {
         abort_if(Gate::denies('coupon_access'), 403);
 
-        $coupons = Coupon::all();
+        $coupons = Coupon::paginate(15);
 
         return view('coupon.index', compact('coupons'));
     }

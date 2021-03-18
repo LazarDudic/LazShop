@@ -30,8 +30,8 @@ class ProductFactory extends Factory
             'price' => rand (1*10, 500*10) / 10,
             'quantity' => rand (3,200),
             'image' => null,
-            'category_id' => rand(1,10),
-            'created_by' => 1,
+            'category_id' => rand(1,15),
+            'created_by' => rand(1,10),
             'updated_by' => 1,
         ];
     }

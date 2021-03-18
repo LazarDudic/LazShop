@@ -7,11 +7,41 @@
         @include('partials.messages')
 
         <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-table mr-1"></i>
-                Products Table
-                <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm float-right">Create</a>
+            <div class="card-header d-lg-flex justify-content-between">
+                <div>
+                    <form action="{{ route('products.search') }}" method="GET" class="form-inline">
+                        <input name="search" type="text" placeholder="search..." class="form-control mr-lg-1"
+                        value="{{ request()->search }}">
+                        Sort by:
+                        <select name="sort_field" class="form-control ml-lg-1">
+                            <option value="updated_at">Updated At</option>
+                            <option value="created_at" {{ request()->sort_field === 'created_at' ? 'selected' : '' }}>
+                                Created At
+                            </option>
+                            <option value="name" {{ request()->sort_field === 'name' ? 'selected' : '' }}>
+                                Name
+                            </option>
+                            <option value="price" {{ request()->sort_field === 'price' ? 'selected' : '' }}>
+                                Price
+                            </option>
+                            <option value="status" {{ request()->sort_field === 'status' ? 'selected' : '' }}>
+                                Status
+                            </option>
+                        </select>
+                        <select name="sort_direction" class="form-control">
+                            <option value="desc">Descending</option>
+                            <option value="asc" {{ request()->sort_direction === 'asc' ? 'selected' : '' }}>
+                                Ascending
+                            </option>
+                        </select>
+                        <button type="submit" class="btn btn-info btn ml-1">Search</button>
+                    </form>
+                </div>
+                <div>
+                    <a href="{{ route('products.create') }}" class="btn btn-primary">Create</a>
+                </div>
             </div>
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
@@ -98,6 +128,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $products->links() }}
             </div>
         </div>
     </div>

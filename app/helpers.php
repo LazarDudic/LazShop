@@ -10,7 +10,7 @@ if (! function_exists('imagePath')) {
             return asset('storage/no_image.png');
         }
 
-        return asset('storage/'. $imagePath);
+        return asset('storage/' . $imagePath);
     }
 }
 
@@ -45,16 +45,38 @@ if (! function_exists('cartNumbers')) {
         }
 
         $shipping = priceFormat(shipping($subtotal));
-        $tax      = priceFormat($subtotal * (config('cart.tax') / 100));
-        $total    = priceFormat($subtotal + $shipping + $tax);
+        $tax = priceFormat($subtotal * (config('cart.tax') / 100));
+        $total = priceFormat($subtotal + $shipping + $tax);
 
 
         return collect([
-            'tax' => $tax,
+            'tax'      => $tax,
             'shipping' => $shipping,
             'discount' => $discount,
             'subtotal' => $subtotal,
-            'total' => $total,
+            'total'    => $total,
         ]);
     }
+
+    if (! function_exists('orderStatusColor')) {
+        function orderStatusColor($orderStatus)
+        {
+            switch ($orderStatus) {
+                case 'paid':
+                    return 'info';
+                case 'shipped':
+                    return 'primary';
+                case 'delivered':
+                    return 'success';
+                case 'refunded':
+                    return 'secondary';
+                case 'dispute':
+                    return 'danger';
+            }
+
+            return 'secondary';
+        }
+    }
+
+
 }

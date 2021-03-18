@@ -14,11 +14,12 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>Name</th>
                             <th>Slug</th>
+                            <th>Products</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -26,6 +27,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Slug</th>
+                            <th>Products</th>
                             <th>Action</th>
                         </tr>
                         </tfoot>
@@ -34,6 +36,7 @@
                         <tr>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->slug }}</td>
+                            <td>{{ $category->products_count }}</td>
                             <td class="d-flex">
                                 <a href="{{ route('categories.show', $category->slug) }}"
                                    class="btn btn-secondary btn-sm mr-2" title="View">
@@ -63,6 +66,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $categories->links() }}
             </div>
         </div>
     </div>

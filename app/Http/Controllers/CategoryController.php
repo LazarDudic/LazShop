@@ -14,7 +14,8 @@ class CategoryController extends Controller
     {
         abort_if(Gate::denies('category_access'), 403);
 
-        $categories = Category::all();
+        $categories = Category::withCount(['products'])
+                              ->paginate(10);
 
         return view('category.index', compact('categories'));
     }

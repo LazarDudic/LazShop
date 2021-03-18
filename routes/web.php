@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function() {
     Route::resource('categories', CategoryController::class)->except('show');
 
     Route::resource('products', ProductController::class)->except('show');
+    Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
     Route::get('/products/{product}/delete-image', [ProductController::class, 'deleteImage'])
         ->name('products.delete-image');
 
@@ -30,7 +31,10 @@ Route::middleware('auth')->group(function() {
         ->name('profile.update-password');
 
     Route::resource('user-orders', UserOrderController::class)->only('index', 'show');
+
+    Route::get('/orders/search', [OrderController::class, 'search'])->name('orders.search');
     Route::resource('orders', OrderController::class)->only('index', 'show', 'edit', 'update');
+
     Route::resource('coupons', CouponController::class)->except('show');
 
 
@@ -46,6 +50,7 @@ Route::middleware('auth')->group(function() {
 
 Route::middleware('admin')->group(function() {
     Route::resource('roles', RoleController::class)->except('show');
+    Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
     Route::resource('users', UserController::class)->only('index', 'edit', 'update', 'destroy');
 
 });

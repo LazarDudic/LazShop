@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\SearchProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
@@ -14,9 +15,9 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        $products = Product::with('createdBy','updatedBy', 'category')
+        $products = Product::with('createdBy', 'updatedBy', 'category')
                            ->orderByDesc('updated_at')
-                           ->get();
+                           ->paginate(10);
 
         return view('product.index', compact('products'));
     }
@@ -90,6 +91,26 @@ class ProductController extends Controller
         $product->deleteImage();
         $product->delete();
         return redirect(route('products.index'))->withSuccess('Product deleted successfully.');
+    }
+
+    public function search(SearchProductRequest $request)
+    {
+        abort_if(Gate::denies('product_access'), 403);
+
+        $products = Product::with('createdBy', 'updatedBy', 'category')
+                           ->where('name', 'like', '%' . $request->search . '%')
+                           ->orWhereHas('category', function($query) use ($request) {
+                               $query->where('name', 'like', '%' . $request->search . '%');
+                           })
+                           ->orWhereHas('createdBy', function($query) use ($request) {
+                               $query->whereRaw('concat(first_name, " ", last_name) like ?',
+                                   ['%' . $request->search . '%']);
+                           })
+                           ->orderBy($request->sort_field, $request->sort_direction)
+                           ->paginate(10)
+                           ->withQueryString();
+
+        return view('product.index', compact('products'));
     }
 
     public function deleteImage(Product $product)
