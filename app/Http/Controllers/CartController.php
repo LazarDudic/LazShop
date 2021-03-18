@@ -16,6 +16,11 @@ class CartController extends Controller
     public function destroy($id)
     {
         Cart::remove($id);
+
+        if (Cart::count() == 0) {
+            session()->forget('coupon');
+        }
+
         return back()->withSuccess('Item removed successfully.');
     }
 }
