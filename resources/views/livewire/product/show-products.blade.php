@@ -33,7 +33,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <small class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        <span class="text-warning">{{ ratingStars($product->reviews->avg('rating')) }}</span>
                     </div>
                 </div>
             </div>

@@ -45,22 +45,21 @@ class ShowProducts extends Component
         $sortField = $this->getSortField();
 
         if ($this->categoryId) {
-            $products = Product::search($this->search, ['name','description'])
-                                ->where('category_id', $this->categoryId)
-                                ->where('status', 1)
-                                ->where('quantity', '>', 0)
-                                ->orderBy($sortField, $this->sortDirection)
-                                ->take($this->take)
-                                ->get();
+            $products = Product::search($this->search, ['name', 'description'])
+                               ->where('category_id', $this->categoryId)
+                               ->where('status', 1)
+                               ->where('quantity', '>', 0)
+                               ->orderBy($sortField, $this->sortDirection)
+                               ->take($this->take)
+                               ->get();
         } else {
-            $products = Product::search($this->search, ['name','description'])
-                                ->where('status', 1)
-                                ->where('quantity', '>', 0)
-                                ->orderBy($sortField, $this->sortDirection)
-                                ->take($this->take)
-                                ->get();
+            $products = Product::search($this->search, ['name', 'description'])
+                               ->where('status', 1)
+                               ->where('quantity', '>', 0)
+                               ->orderBy($sortField, $this->sortDirection)
+                               ->take($this->take)
+                               ->get();
         }
-
 
         return view('livewire.product.show-products', [
             'products' => $products

@@ -24,12 +24,19 @@
                                 <p>Quantity: {{ $orderItem->quantity }}</p>
                             </div>
                             @if(optional($orderItem->product)->quantity && optional($orderItem->product)->status)
-                                <a href="#" class="btn btn-primary btn-sm mt-2">Buy again</a>
+                                <a href="{{ route('products.show', $orderItem->product_id) }}"
+                                   class="btn btn-primary btn-sm mt-2">Buy again</a>
+
+                                    @if(in_array($order->status, ['delivered', 'refunded']))
+                                        <a href="{{ route('products.show', $orderItem->product_id) }}"
+                                           class="btn btn-success btn-sm mt-2">Leave Review</a>
+                                    @endif
                             @else
                                 <div class="badge badge-danger">Sold Out</div>
                             @endif
                             <hr>
                         @endforeach
+
                             <div class="d-flex justify-content-between">
                                 <h4>Total Paid: ${{ $order->total }}</h4>
                                 <div>

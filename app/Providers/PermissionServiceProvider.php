@@ -28,7 +28,7 @@ class PermissionServiceProvider extends ServiceProvider
     public function boot()
     {
         Gate::before(function (User $user) {
-            if ($user->isAdmin()) {
+            if ($user->hasRole('admin')) {
                 return true;
             }
         });

@@ -67,6 +67,19 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function isEntitledToLeaveReview(Product $product): bool
+    {
+        if (! $this->hasRole('buyer')) {
+            return false;
+        }
+        return (boolean) $this->reviews()->where('product_id', $product->id)->count();
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -80,11 +93,6 @@ class User extends Authenticatable
     public function wishListProducts()
     {
         return $this->belongsToMany(Product::class, 'wish_lists');
-    }
-
-    public function isAdmin()
-    {
-        return $this->role->name === 'admin';
     }
 
     public function address()

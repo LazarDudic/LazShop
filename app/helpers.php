@@ -78,5 +78,19 @@ if (! function_exists('cartNumbers')) {
         }
     }
 
+    if (! function_exists('ratingStars')) {
+        function ratingStars($rating)
+        {
+            $rating = round($rating, 0, PHP_ROUND_HALF_EVEN);
+
+            for ($i = 1; $i <= 5; $i++) {
+                if ($rating >= $i) {
+                    echo '<i class="fas fa-star"></i>';
+                } else {
+                    echo '<i class="far fa-star"></i>';
+                }
+            }
+        }
+    }
 
 }

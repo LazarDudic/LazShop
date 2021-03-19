@@ -7,6 +7,7 @@ use App\Http\Requests\Product\SearchProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
@@ -54,8 +55,11 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $categories = Category::all();
+        $reviews = Review::with('user')
+                         ->where('product_id', $product->id)
+                         ->paginate(5);
 
-        return view('product.show', compact('product', 'categories'));
+        return view('product.show', compact('product', 'categories', 'reviews'));
     }
 
     public function edit(Product $product)

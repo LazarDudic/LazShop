@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([RoleSeeder::class, PermissionSeeder::class]);
 
-        \App\Models\User::factory(100)->create();
+        \App\Models\User::factory(20)->create();
         \App\Models\Category::factory(15)->create();
-        \App\Models\Product::factory(300)->create();
+        \App\Models\Product::factory(50)->create();
         \App\Models\Order::factory(100)->create();
+        \App\Models\Review::factory(500)->create();
 
         Coupon::create([
             'code' => 'ABC123',

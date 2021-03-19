@@ -41,12 +41,35 @@
                             </div>
                         </div>
                         <p class="card-text">{!! $product->description !!}</p>
-                        <h5 class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</h5>
-                        4.0 stars
-
+                        <h4 class="text-warning">{{ ratingStars($reviews->avg('rating')) }}</h4>
                     </div>
-
                 </div>
+                <!-- /.card -->
+
+                <!-- Create Review -->
+                @auth()
+                    @if(auth()->user()->isEntitledToLeaveReview($product))
+                        <livewire:review.create-review :product="$product" />
+                    @endif
+                @endauth
+
+                @if($reviews->count() > 0)
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        Product Reviews
+                    </div>
+                    <div class="card-body">
+                        @foreach($reviews as $review)
+                            <h5 class="text-warning">{{ ratingStars($review->rating) }}</h5>
+                            <p>{{ $review->comment }}</p>
+                            <small class="text-muted">Posted by {{ $review->user->fullName() }} on {{
+                            $review->created_at->format('Y.m.d') }}</small>
+                            <hr>
+                        @endforeach
+                    </div>
+                    {{ $reviews->links() }}
+                </div>
+                @endif
                 <!-- /.card -->
 
             </div>
@@ -56,3 +79,7 @@
 
     </div>
 @endsection
+
+
+
+
