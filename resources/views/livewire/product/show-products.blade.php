@@ -5,7 +5,8 @@
                 <option value="created_at">Newest</option>
                 <option value="price_low" >Price(Low to High)</option>
                 <option value="price_high">Price(High to Low)</option>
-{{--                <option value="review">Review</option>--}}
+                <option value="rating">Rating</option>
+                <option value="orders">Orders</option>
             </select>
         </div>
         <div class="col">
@@ -26,14 +27,15 @@
                             <a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a>
                         </h6>
                         <h5 class="text-success">${{ $product->price }}</h5>
-                        <span class="text-secondary">({{ $product->quantity }}) peaces available.</span>
+{{--                        <span class="text-secondary">({{ $product->quantity }}) peaces available.</span>--}}
+                        <span class="text-secondary">({{ $product->orderItems->count() }}) orders.</span>
                         <!-- AddToCartButton -->
                         <livewire:cart.add-to-cart-button :product="$product" :key="$loop->index"/>
                         <!-- AddToCartButton end -->
 
                     </div>
                     <div class="card-footer">
-                        <span class="text-warning">{{ ratingStars($product->reviews->avg('rating')) }}</span>
+                        <span class="text-warning">{{ ratingStars($product->rating) }}</span>
                     </div>
                 </div>
             </div>
