@@ -10,7 +10,10 @@
             <div class="card-header">
                 <i class="fas fa-table mr-1"></i>
                 Categories Table
-                <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm float-right">Create</a>
+                @can('category_create')
+                    <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm float-right">Create</a>
+                @endcan
+
             </div>
             <div class="card-body">
                 <div class="table-responsive">

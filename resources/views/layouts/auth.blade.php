@@ -111,7 +111,9 @@
                         <div class="collapse" id="collapseProducts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('products.index') }}">Show</a>
-                                <a class="nav-link" href="{{ route('products.create') }}">Create</a>
+                                @can('product_create')
+                                    <a class="nav-link" href="{{ route('products.create') }}">Create</a>
+                                @endcan
                             </nav>
                         </div>
                     @endcan
@@ -134,7 +136,9 @@
                         <div class="collapse" id="collapseCategories" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('categories.index') }}">Show</a>
-                                <a class="nav-link" href="{{ route('categories.create') }}">Create</a>
+                                @can('category_create')
+                                    <a class="nav-link" href="{{ route('categories.create') }}">Create</a>
+                                @endcan
                             </nav>
                         </div>
                     @endcan
@@ -150,7 +154,9 @@
                              data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('coupons.index') }}">Show</a>
-                                <a class="nav-link" href="{{ route('coupons.create') }}">Create</a>
+                                @can('coupon_create')
+                                    <a class="nav-link" href="{{ route('coupons.create') }}">Create</a>
+                                @endcan
                             </nav>
                         </div>
                     @endcan

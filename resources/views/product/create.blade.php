@@ -35,7 +35,7 @@
                     <label for="">Quantity</label>
                     <input name="quantity" type="number" class="form-control" step="any" min="0"
                            value="{{ old('quantity') ?? $product->quantity ?? '' }}">
-                </div>quantity
+                </div>
                 <div class="form-group">
                     <label for="">Image</label>
                     <div class="custom-file">
