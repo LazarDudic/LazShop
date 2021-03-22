@@ -37,13 +37,17 @@ php artisan migrate
 php artisan db:seed
 ``````
 
-- Run local development server.
+- Public storage files
+```bash
+php artisan storage:link
+``````
 
+- Run local development server.
 ```bash
 php artisan serve
 ``````
-- Run the queue worker 
 
+- Run the queue worker 
 ```bash
 php artisan queue:work
 ````````````
