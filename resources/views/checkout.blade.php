@@ -43,7 +43,7 @@
                     <div class="my-3">
                         @include('partials.messages')
                         <div id="card-error" class="text-danger"></div>
-                        <form action="{{ route('checkout.purchase') }}" method="POST" id="payment-form">
+                        <form action="{{ route('stripe.purchase') }}" method="POST" id="payment-form">
                             @csrf
                             <div class="form-group mt-2">
                                 <label for="">Name on the card</label>
@@ -72,6 +72,15 @@
                         </form>
                     </div>
                 </div>
+                <hr>
+                <h4 class="text-center">Pay with PayPal</h4>
+                <form action="{{ route('paypal.purchase') }}" method="POST">
+                    @csrf
+                    <div class="w-75 m-auto">
+                        <button class="btn btn-primary form-control">Pay ${{ $cart['total'] }}</button>
+                    </div>
+                </form>
+                <hr>
             </div>
         </div>
     </div>

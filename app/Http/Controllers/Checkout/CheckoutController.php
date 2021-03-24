@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Checkout;
 
-use App\Events\Ordered;
 use App\Models\Order;
 use App\Models\OrderAddress;
 use App\Models\OrderItem;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CheckoutController extends Controller
 {
@@ -23,35 +22,7 @@ class CheckoutController extends Controller
         return view('checkout', compact('intent', 'address', 'cart'));
     }
 
-    public function purchase(Request $request)
-    {
-        if ($itemName = $this->requestedItemsAreNotAvailable()) {
-            return redirect(route('cart.index'))
-                ->withErrors('Item ' . $itemName . ' is sold out or available quantity is less then requested.');
-        }
-
-        $user = auth()->user();
-        $cart = cartNumbers();
-
-        try {
-            $user->createOrGetStripeCustomer();
-            $user->updateDefaultPaymentMethod($request->payment_method);
-            $stripe = $user->charge($cart['total'] * 100, $request->payment_method, [
-                'description' => 'Order from ' . env('app_name'),
-            ]);
-
-        } catch (\Exception $exception) {
-            return back()->with('error', $exception->getMessage());
-        }
-
-        $order = $this->storeOrderDetails($stripe, $cart);
-
-        event(new Ordered($order));
-
-        return redirect(route('user-orders.index'))->with('success', 'The order placed successfully! Thank you!');
-    }
-
-    private function requestedItemsAreNotAvailable()
+    protected function requestedItemsAreNotAvailable()
     {
         foreach (Cart::content() as $row) {
             if (($row->model->quantity - $row->qty) < 0) {
@@ -62,18 +33,19 @@ class CheckoutController extends Controller
         return false;
     }
 
-    private function storeOrderDetails($stripe, $cart)
+    protected function storeOrderDetails($transactionId = null, $status = 'unpaid')
     {
         $user = auth()->user();
+        $cart = cartNumbers();
 
         $order = Order::create([
             'total'          => $cart['total'],
             'subtotal'       => $cart['subtotal'],
             'tax'            => $cart['tax'],
             'shipping'       => $cart['shipping'],
-            'status'         => 'paid',
+            'status'         => $status,
             'email'          => $user->email,
-            'transaction_id' => $stripe->id,
+            'transaction_id' => $transactionId,
             'user_id'        => $user->id
         ]);
 

@@ -9,12 +9,14 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Checkout\CheckoutController;
+use App\Http\Controllers\Checkout\StripeCheckoutController;
+use App\Http\Controllers\Checkout\PayPalCheckoutController;
 
 Route::middleware('auth')->group(function() {
     Route::get('/account', [AccountController::class, 'index'])->name('account');
@@ -37,13 +39,16 @@ Route::middleware('auth')->group(function() {
 
     Route::resource('coupons', CouponController::class)->except('show');
 
-
     Route::middleware('buyer')->group(function() {
         Route::resource('address', UserAddressController::class)->only('index', 'edit', 'update');
         Route::resource('wish-list', WishListController::class)->only('index', 'store', 'destroy');
 
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-        Route::post('/checkout/purchase', [CheckoutController::class, 'purchase'])->name('checkout.purchase');
+
+        Route::post('/checkout/purchase/stripe', [StripeCheckoutController::class, 'purchase'])->name('stripe.purchase');
+
+        Route::post('/checkout/purchase/paypal', [PayPalCheckoutController::class, 'purchase'])->name('paypal.purchase');
+        Route::get('/checkout/paypal/success/{order}', [PayPalCheckoutController::class, 'purchaseSuccess'])->name('paypal.success');
     });
 
 });
