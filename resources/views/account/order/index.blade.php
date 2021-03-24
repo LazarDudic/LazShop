@@ -49,7 +49,8 @@
                     </div>
                     <hr>
                 @endforeach
+                {{ $orders->links() }}
             </div>
-        </div>
+    </div>
 
 @endsection

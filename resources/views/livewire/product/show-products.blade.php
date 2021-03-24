@@ -30,7 +30,7 @@
 {{--                        <span class="text-secondary">({{ $product->quantity }}) peaces available.</span>--}}
                         <span class="text-secondary">({{ $product->orderItems->count() }}) orders.</span>
                         <!-- AddToCartButton -->
-                        <livewire:cart.add-to-cart-button :product="$product" :key="$loop->index"/>
+                        <livewire:cart.add-to-cart-button :product="$product" :key="$product->id"/>
                         <!-- AddToCartButton end -->
 
                     </div>

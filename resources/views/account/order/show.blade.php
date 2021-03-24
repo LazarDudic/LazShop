@@ -57,8 +57,14 @@
                             <th>Estimated time of delivery</th>
                             <td>{{ $order->shippingDates->deliver_at }}</td>
                         </tr>
+                        @else
                         <tr>
-                            <th><h5 class="text-secondary">Sent to:</h5></th>
+                            <th>Shipped at</th>
+                            <td class="text-secondary">Waiting for Shipment</td>
+                        </tr>
+                        @endif
+                        <tr>
+                            <th><h5 class="text-secondary">Ship to:</h5></th>
                         </tr>
                         <tr>
                             <th>Country</th>
@@ -80,12 +86,6 @@
                             <th>Address</th>
                             <td>{{ $order->address->address }}</td>
                         </tr>
-                        @else
-                        <tr>
-                            <th>Shipped at</th>
-                            <td class="text-secondary">Waiting for Shipment</td>
-                        </tr>
-                        @endif
 
                     </table>
                 </div>

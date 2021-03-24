@@ -12,7 +12,8 @@ class UserOrderController extends Controller
          $orders = auth()->user()->orders()
                                 ->with('address', 'orderItemsAndRelatedProduct')
                                 ->where('user_id', auth()->id())
-                                ->get();
+                                ->latest()
+                                ->paginate(10);
 
         return view('account.order.index', compact('orders'));
     }
