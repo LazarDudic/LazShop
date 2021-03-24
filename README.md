@@ -15,7 +15,7 @@ git clone https://github.com/Lazar90/LazShop.git
 cd LazShop
 ```
 - Create and Set up your .env file by copying .env.example file.
-    * Fill in a database, email and stripe information.
+    * Fill in a database, email, stripe and paypal information.
     
 - Install dependencies.
 ```bash
@@ -27,7 +27,7 @@ composer install
 php artisan key:generate
 ``````
 
-- Run migration 
+- Run migration.
 ```bash
 php artisan migrate
 ``````
@@ -37,7 +37,7 @@ php artisan migrate
 php artisan db:seed
 ``````
 
-- Public storage files
+- Public storage files.
 ```bash
 php artisan storage:link
 ``````
@@ -47,12 +47,12 @@ php artisan storage:link
 php artisan serve
 ``````
 
-- Run the queue worker 
+- Run the queue worker.
 ```bash
 php artisan queue:work
 ````````````
 
-- Log in as an admin
+- Log in as an admin.
     * email: admin@admin.com
     * password: password
      
