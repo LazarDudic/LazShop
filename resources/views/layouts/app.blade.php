@@ -16,7 +16,7 @@
             {{ config('app.name') }}
         @endisset
     </title>
-
+    @yield('head')
     @livewireStyles
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
@@ -34,7 +34,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">Home
                         <span class="sr-only">(current)</span>
                     </a>
@@ -42,6 +42,11 @@
                 <li class="nav-item">
                     <a class="nav-link text-warning" href="{{ route('cart.index') }}">
                         <livewire:cart.cart-nav-link />
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contact.form') }}">
+                        Contact
                     </a>
                 </li>
                 @guest

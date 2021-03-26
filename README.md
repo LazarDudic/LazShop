@@ -15,8 +15,8 @@ git clone https://github.com/Lazar90/LazShop.git
 cd LazShop
 ```
 - Create and Set up your .env file by copying .env.example file.
-    * Fill in a database, email, stripe and paypal information.
-    
+    * Fill in a database, email, stripe, paypal and reCAPTCHA information.
+        
 - Install dependencies.
 ```bash
 composer install

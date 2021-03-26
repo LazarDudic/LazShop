@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Checkout\CheckoutController;
 use App\Http\Controllers\Checkout\StripeCheckoutController;
 use App\Http\Controllers\Checkout\PayPalCheckoutController;
+use App\Http\Controllers\ContactController;
 
 Route::middleware('auth')->group(function() {
     Route::get('/account', [AccountController::class, 'index'])->name('account');
@@ -62,8 +63,9 @@ Route::middleware('admin')->group(function() {
 
 Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/contact', [ContactController::class, 'showContactForm'])->name('contact.form');
+Route::post('/contact/send-mail', [ContactController::class, 'sendEmail'])->name('contact.send-email');
 Route::resource('cart', CartController::class)->only('index', 'destroy');
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-
 
