@@ -34,30 +34,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('home') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('home') }}">Home
-                        <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('cart') ? 'active' : '' }}">
                     <a class="nav-link text-warning" href="{{ route('cart.index') }}">
                         <livewire:cart.cart-nav-link />
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Route::is('contact.form') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('contact.form') }}">
                         Contact
                     </a>
                 </li>
                 @guest
                     @if (Route::has('login'))
-                        <li class="nav-item">
+                        <li class="nav-item {{ Route::is('login') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                     @endif
 
                     @if (Route::has('register'))
-                        <li class="nav-item">
+                        <li class="nav-item {{ Route::is('register') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
