@@ -10,7 +10,7 @@
             </select>
         </div>
         <div class="col">
-            <input wire:model="search" type="search" class="form-control" placeholder="Search...">
+            <input wire:model.debounce.300ms="search" type="search" class="form-control" placeholder="Search...">
         </div>
     </div>
 
@@ -30,7 +30,7 @@
 {{--                        <span class="text-secondary">({{ $product->quantity }}) peaces available.</span>--}}
                         <span class="text-secondary">({{ $product->orderItems->count() }}) orders.</span>
                         <!-- AddToCartButton -->
-                        <livewire:cart.add-to-cart-button :product="$product" :key="$product->id"/>
+                        <livewire:cart.add-to-cart-button :product="$product" :key="time().$product->id"/>
                         <!-- AddToCartButton end -->
 
                     </div>

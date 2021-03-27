@@ -19,7 +19,7 @@ class ShowProducts extends Component
         'price_low',
         'rating',
         'orders',
-    ];
+        ];
 
     private function getSortField()
     {
@@ -47,18 +47,19 @@ class ShowProducts extends Component
     {
         $sortField = $this->getSortField();
 
-        $products = Product::search($this->search, ['name', 'description'])
-                           ->when($this->categoryId, function($query) {
-                               return $query->where('category_id', $this->categoryId);
-                           })
-                           ->where('status', 1)
-                           ->where('quantity', '>', 0)
-                           ->withCount(['orderItems as orders', 'reviews as rating' => function($query) {
-                               $query->select(DB::raw('coalesce(avg(rating),0)'));
-                           }])
-                           ->orderBy($sortField, $this->sortDirection)
-                           ->take($this->take)
-                           ->get();
+        $products = Product::search($this->search, ['name', 'description',])
+            ->when($this->categoryId, function($query) {
+                return $query->where('category_id', $this->categoryId);
+            })
+            ->where('status', 1)
+            ->where('quantity', '>', 0)
+            ->with('orderItems')
+            ->withCount(['orderItems as orders', 'reviews as rating' => function($query) {
+                $query->select(DB::raw('coalesce(avg(rating),0)'));
+            }])
+            ->orderBy($sortField, $this->sortDirection)
+            ->take($this->take)
+            ->get();
 
         return view('livewire.product.show-products', [
             'products' => $products
