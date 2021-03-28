@@ -57,6 +57,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $reviews = Review::with('user')
                          ->where('product_id', $product->id)
+                         ->latest()
                          ->paginate(5);
 
         return view('product.show', compact('product', 'categories', 'reviews'));

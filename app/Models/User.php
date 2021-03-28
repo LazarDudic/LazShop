@@ -34,7 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-    ];
+        ];
 
     /**
      * The attributes that should be cast to native types.
@@ -43,7 +43,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
+        ];
 
     public function fullName()
     {
@@ -58,7 +58,7 @@ class User extends Authenticatable
     public function hasOngoingOrder()
     {
         return $this->orders->contains(function($value, $key) {
-            return in_array($value->status , ['paid', 'shipped', 'dispute']);
+            return in_array($value->status, ['paid', 'shipped', 'dispute']);
         });
     }
 
@@ -67,12 +67,27 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    public function isEntitledToLeaveReview(Product $product): bool
+    public function isEntitledToLeaveReview(Product $product) : bool
     {
         if (! $this->hasRole('buyer')) {
             return false;
         }
-        return (boolean) $this->reviews()->where('product_id', $product->id)->count();
+
+        $userOrdersCountOfThisProduct = $this->orders()
+            ->whereHas('orderItems', function($query) use ($product) {
+                $query->where('product_id', $product->id);
+            })
+            ->count();
+
+        if (! $userOrdersCountOfThisProduct) {
+            return false;
+        }
+
+        $userReviewsCountOfThisProduct = $this->reviews()
+            ->where('product_id', $product->id)
+            ->count();
+
+        return $userOrdersCountOfThisProduct > $userReviewsCountOfThisProduct;
     }
 
     public function reviews()
