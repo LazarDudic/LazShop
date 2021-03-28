@@ -21,11 +21,6 @@ class CreateReview extends Component
     public function store()
     {
         $data = $this->validate();
-
-        if ($this->reviewAlreadyPosted()) {
-            return $this->addError('comment', 'Your review has been posted already.');
-        }
-
         $data['user_id'] = auth()->id();
         $data['product_id'] = $this->product->id;
 
@@ -36,17 +31,8 @@ class CreateReview extends Component
         return redirect(route('products.show', $this->product->id));
     }
 
-    public function reviewAlreadyPosted()
-    {
-        return Review::where([
-                'product_id' => $this->product->id,
-                'user_id' => auth()->id()
-                ])->count();
-    }
-
     public function openForm()
     {
-
         $this->leaveReview = true;
     }
 
